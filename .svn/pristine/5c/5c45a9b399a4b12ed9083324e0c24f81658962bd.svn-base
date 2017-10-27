@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/message.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header id="messageHeader">
+		消息
+	</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript">
+apiready = function() {
+	FastClick.attach(document.body);
+	if(Xiaobang.getlinktype())
+	{
+	    var UIListView = api.require('UIListView');
+		var headerH = $api.offset($api.byId('messageHeader')).h;
+		var frameH = api.winHeight - headerH;
+		UIListView.open({
+		    rect: {
+		        x: 0,
+		        y: headerH,
+				w: api.winWidth,
+		        h: frameH
+		    },
+		    data: [{
+		        uid: '1001',
+		        imgPath: 'widget://image/tx.jpg',
+		        title: '祁同伟',
+		        subTitle: '司法鉴定的话需要到现场采样拍照',
+		        remark: '刚刚',
+		        icon: 'widget://image/dian.png'
+		    }, {
+		        uid: '1001',
+		        imgPath: 'widget://image/tx.jpg',
+		        title: '小帮鉴定',
+		        subTitle: '欢迎使用中国领先的司法鉴定服务平台',
+		        remark: '30分钟前',
+		        icon: ''
+		    }
+			],
+		    rightBtns: [{
+		        bgColor: '#ff0000',
+		        activeBgColor: '',
+		        width: 70,
+		        title: '删除',
+		        titleSize: 14,
+		        titleColor: '#fff',
+		        icon: '',
+		        iconWidth: 20
+		    }],
+		    styles: {
+		        borderColor: '#e5e4e4',
+		        item: {
+		            bgColor: '#f4f4f4',
+		            activeBgColor: '#ffffff',
+		            height: 75,
+		            imgWidth: 50,
+		            imgHeight: 50,
+		            imgCorner: 50,
+		            placeholderImg: '',
+		            titleSize: 14.0,
+		            titleColor: '#000',
+		            subTitleSize: 12.0,
+		            subTitleColor: '#555',
+		            remarkColor: '#afafaf',
+		            remarkSize: 12,
+		            remarkIconWidth: 16
+		        }
+		    },
+		    fixedOn: api.frameName
+		}, function(ret, err) {
+		});
+	}
+}
+
+</script>
+</html>

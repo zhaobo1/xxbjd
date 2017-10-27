@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+<body>
+    <div id="footerbox">
+	    <div id="footer">
+			<a href="#javascript:;" onclick="openFrame(1)" class="item current">
+				<i></i>
+				首 页
+			</a>
+			<a href="#javascript:;" onclick="openFrame(2)" class="item">
+				<i></i>
+				咨 询
+			</a>
+			<a href="#javascript:;" onclick="openFrame(3)" class="item">
+				<i></i>
+				消 息
+			</a>
+			<a href="#javascript:;" onclick="openFrame(4)" class="item">
+				<i></i>
+				我 的
+			</a>
+	    </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/flexible.js"></script>
+<script type="text/javascript">
+var frameH,footerH;
+var currentIndex=1;//默认等于1；首页显示；
+function openFrame(index,str){
+    if(currentIndex==index){
+      //如果处于当前页，在点击底部导航，将不做任何处理；
+      return false;
+    }
+    var reload = false;
+    var type;
+		switch(index)
+		{
+			case 1:
+				var name = 'main';
+    			var url = 'html/main.html'
+			break;
+            case 2:
+				var name = 'askframe';
+    			var url = 'html/askframe.html';
+                type = str;
+                reload=true;
+			break;
+			case 3:
+				var name = 'message';
+    			var url = 'html/message.html'
+			break;
+			case 4:
+				var name = 'my';
+    			var url = 'html/my.html'
+			break;
+		};
+		var option = {
+		    name:name,
+		    url:url,
+            reload:reload,
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: 'auto',
+		        h: frameH
+		    },
+		    pageParam: {
+		      footerH:footerH,
+              type:type
+		    },
+		    bounces: true,
+		    animation:{
+		      type:'fade',
+		      duration:300,
+		    },
+            delay:500,
+            progress:{
+                type:'page',
+                title:'休息一下',
+                text:'打一把游戏吧，',
+                color:'red'
+            }
+	  }
+    //发送个事件
+    api.sendEvent({
+        name: 'myEvent',
+        extra: {
+            key1: 'value1',
+            key2: 'value2'
+        }
+    });
+        hideAllFrame(currentIndex);
+	  api.openFrame(option);
+    //激活当前选项卡；
+    $api.removeCls(document.getElementsByClassName('current')[0],'current');
+    var footeritems = document.getElementsByClassName('item');
+    $api.addCls(footeritems[index-1],'current');
+    currentIndex = index;
+}
+// 隐藏所有的一级frame
+	function hideAllFrame(index){
+
+
+           api.closeFrame({
+               name: 'main',
+           });
+           api.closeFrame({
+               name: 'askframe',
+           });
+           api.closeFrame({
+               name: 'message',
+           });
+           api.closeFrame({
+               name: 'my',
+           });
+           api.closeFrame({
+               name: 'ask_org',
+           });
+           api.closeFrame({
+               name: 'ask_doctor',
+           });
+
+
+   	}
+    var ajpush;
+    apiready = function(){
+        var footer = $api.byId('footerbox');
+		footerH = $api.offset(footer).h;
+		frameH = api.winHeight - footerH;
+        api.openFrame({
+            name: 'main',
+            url: 'html/main.html',
+            bounces: true,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: frameH
+            }
+        });
+        // ajpush = api.require('ajpush');
+        // ajpush.init(function(ret) {
+        //     if (ret && ret.status){
+        //         initajpush();
+        //     }
+        // });
+        // api.addEventListener({
+        //         name : 'appintent'
+        // }, function(ret, err) {
+        //         if (ret && ret.appParam['ajpush']) {
+        //                 var data = ret.appParam['ajpush'];
+        //                 var id = data.id;
+        //                 var title = data.title;
+        //                 var content = data.content;
+        //                 var extra = data.extra;
+        //                 alert(content)
+        //         }
+        // })
+        // //通知应用退入后台；
+        // api.addEventListener({name:'pause'}, function(ret,err) {
+        //     ajpush.onPause();
+        //     api.addEventListener({
+        //             name : 'appintent'
+        //     }, function(ret, err) {
+        //             if (ret && ret.appParam['ajpush']) {
+        //                     var data = ret.appParam['ajpush'];
+        //                     var id = data.id;
+        //                     var title = data.title;
+        //                     var content = data.content;
+        //                     var extra = data.extra;
+        //                     alert(content)
+        //             }
+        //     })
+        // });
+        // //通知应用恢复到前台；
+        // api.addEventListener({name:'resume'}, function(ret,err) {
+        //     ajpush.onResume();
+        //     api.removeEventListener({
+        //         name: 'appintent'
+        //     });
+        // });
+        // ajpush.setListener(
+        //     function(ret) {
+        //          var id = ret.id;
+        //          var title = ret.title;
+        //          var content = ret.content;
+        //          var extra = ret.extra;
+        //          alert(content)
+        //     }
+        // );
+        // function initajpush() {
+        // 	var param = {alias:'myalias'};
+        // 	ajpush.bindAliasAndTags(param, function(ret) {
+        // 	    var statusCode = ret.statusCode;
+        // 	    api.toast({
+        // 	            msg : '初始化极光成功'
+        // 	    });
+        // 	});
+        // }
+        var rong = api.require('rongCloud2');
+        rong.init(function(ret, err) {
+            if (ret.status == 'error')
+                api.toast({ msg: err.code });
+        });
+        rong.connect({
+            token: '5fEsG4MNyRYKkAr2JDIdVh59sKTMkq/Tx7Vr3Zk1v2k7tiEBTPwJi361n0Y2EjHX9MZC3kg/eGehuGIgEtI3cg=='},function(ret, err) {
+            if (ret.status == 'success') api.toast({ msg: ret.result.userId });
+        });
+    };
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/my_ask.css" />
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back">
+            <img src="../image/back.png" alt="">
+        </a>
+        <span>我的咨询</span>
+        <i></i>
+    </header>
+    <div class="my_ask_list">
+        <div class="item">
+            <div class="left">
+                <img src="../image/tx.jpg" alt="" class="head_pic">
+            </div>
+            <div class="right">
+                <div class="info">
+                    <div class="name">娄艺潇</div>
+                    <div class="belong">四川华西外科专家</div>
+                    <span class="tag">已购买</span>
+                </div>
+                <div class="chats">
+                    <img src="../image/chat.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <img src="../image/tx.jpg" alt="" class="head_pic">
+            </div>
+            <div class="right">
+                <div class="info">
+                    <div class="name">娄艺潇</div>
+                    <div class="belong">四川华西外科专家</div>
+                    <span class="tag">已购买</span>
+                </div>
+                <div class="chats">
+                    <img src="../image/chat.png" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+</html>

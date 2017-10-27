@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/org_home.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header class="org_home_header" id="org_header">
+		<a class="back"><img src="../image/back.png"></a>
+		<span>机构主页</span>
+		<img class="share" id="share" src="../image/fenxiang.png" alt="">
+	</header>
+	<div class="btngroup" id="org_btn">
+		<div class="item" tapmode="btn_blue" id="online">
+			<img src="../image/zixun.png" alt="" >在线咨询</div>
+		<div class="item" tapmode="btn_green">
+			<img src="../image/tel.png" alt="">电话咨询</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+apiready=function(){
+	var header = $api.byId('org_header');
+	var footer = $api.byId('org_btn');
+	var frameH = api.winHeight - $api.offset(header).h - $api.offset(footer).h;
+	api.openFrame({
+	    name: 'org_info',
+	    url: './org_home_info.html',
+	    rect: {
+	        x: 0,
+	        y: $api.offset(header).h,
+	        w: 'auto',
+	        h: frameH
+	    },
+	    pageParam: {
+	        id: api.pageParam.id
+	    },
+	    bounces: true
+	});
+}
+
+document.getElementById('share').addEventListener('click',function(){
+	//点击分享触发org_infoframe中的分享实例化
+	api.execScript({
+	    frameName: 'org_info',
+	    script: 'openshare({title:"分享至",arr:["微信好友","朋友圈","手机QQ","QQ空间","新浪微博","复制链接"]});'
+	});
+})
+</script>
+</html>

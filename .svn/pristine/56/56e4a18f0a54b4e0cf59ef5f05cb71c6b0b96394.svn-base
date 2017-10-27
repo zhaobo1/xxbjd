@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+	<header id="headerbox">
+		<div id="header">
+			<div class="item">
+				<span onclick="changeOrg('org',0)" tapmode>机构</span>
+			</div>
+			<div class="item current">
+				<span onclick="changeOrg('doctor',1)" tapmode>专家</span>
+			</div>
+		</div>
+	</header>
+  <!-- 当前数据量不多；刷新加载放在迭代版本中 -->
+  <div class="content">
+    <div class="listbox">
+      <ul class="list doctor_list">
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+        <li>666</li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript">
+var frameH,footerH,headerH;
+//机构，专家切换
+var strinit = 'doctor';
+function changeOrg(str,index){
+  	if(str === strinit){
+  		return false;
+  	}
+    var changeItem = $api.domAll(document.getElementById('header'),'.item');
+    $api.addCls(changeItem[index], 'current');
+    if(index==0)
+    {
+      $api.removeCls(changeItem[1], 'current');
+    }else{
+      $api.removeCls(changeItem[0], 'current');
+    }
+		strinit = str;
+}
+apiready = function(){
+  //监听事件
+  api.addEventListener({
+      name: 'myEvent'
+  }, function(ret, err){
+
+      if( ret ){
+          // alert( JSON.stringify( ret ) );
+      }else{
+          // alert( JSON.stringify( err ) );
+      }
+  });
+
+  //在当前window中找到名为frmName的frame，并在该frame中执行jsfun脚本
+var jsfun = 'funcGoto();';
+api.execScript({
+    name:'root',
+    script: jsfun
+});
+}
+</script>
+</html>

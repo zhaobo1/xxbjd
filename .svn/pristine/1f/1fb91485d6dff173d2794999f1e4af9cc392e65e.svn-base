@@ -1,0 +1,119 @@
+html,body{
+	font-family:'microsoft yahei';
+}
+a{
+	&:link{
+		text-decoration:none!important;
+	}
+	&:visited{
+		text-decoration:none!important;
+	}
+	&:hover{
+		text-decoration:none!important;
+	}
+	&:active{
+		text-decoration:none!important;
+	}
+}
+$footer-color:#576066;
+$footer-current-color:#3bce9d;
+$true:true;
+$false:false;
+@mixin font-dpr($font-size){
+	font-size: $font-size;
+    [data-dpr="2"] & {
+        font-size: $font-size * 2;
+    }
+    [data-dpr="3"] & {
+        font-size: $font-size * 3;
+    }
+}
+@mixin backgroundImage($url,$cover:cover){
+  background:{
+    image:url($url);
+    repeat:no-repeat;
+    position:center;
+    size:$cover;
+  }
+}
+@mixin footericon($flg){
+	@for $i from 1 through 4 {
+	  	&:nth-child(#{$i}) i{ 
+  		@if $flg{
+			$url: "../image/footericon#{$i}-hover.png";
+			@include backgroundImage($url,100%);
+  		}@else{
+			$url: "../image/footericon#{$i}.png";
+			@include backgroundImage($url,100%);
+  		}
+	  }
+	}
+}
+@mixin borderR($num)
+{
+	border-radius:$num;
+	-webkit-border-radius:$num;
+	-ms-border-radius:$num;
+}
+//边框SVG函数
+@function borders($color){
+	@return url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%23#{$color}' width='100%25' height='50%25'/%3E%3C/svg%3E") 2 2 stretch;
+}
+%flex{
+	display:flex;
+	-webkit-display:flex;
+	-ms-display:flex;
+}
+%flexCenter-y{
+	align-items:center;
+	-webkit-align-items:center;
+	-ms-align-items:center;
+}
+%flexCenter-x{
+	align-content:center;
+	-webkit-align-content:center;
+	-ms-align-content:center;
+} 
+//components
+//header-component
+%headerComponent{
+	height:1.173333rem;
+	background-color:#fff;
+	text-align:center;
+	line-height:1.173333rem;
+	@include font-dpr(18px);
+	color:#000;
+	box-sizing:border-box;
+}
+//header-component
+//footer-component
+%footerComponent{
+	width:100%;
+    border-top: 1px solid transparent;
+    border-image:borders(ddd);
+	height:1.266667rem;
+	background-color:#fff;
+	box-sizing:border-box;
+	@extend %flex;
+	@extend %flexCenter-y;
+	a.item{
+		display: block;
+		flex:1;
+		color:$footer-color;
+		@include font-dpr(9px);
+		text-align: center;
+		@include footericon($false);
+		i{
+			display: block;
+			width: 0.56rem;
+			height:0.56rem;
+			margin:0 auto 0.08rem auto;
+		}
+		&.current{
+			color: $footer-current-color;
+			@include footericon($true);
+		}
+	}
+}
+//footer-component
+//components

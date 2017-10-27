@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/news.css">
+</head>
+<body style="background-color:#fff">
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png" alt=""></a>
+        <span style="margin-left:0;">资讯详情</span>
+        <img src="../image/fenxiang.png" id="share" alt="">
+    </header>
+    <div class="content_info">
+        <div class="title">孩子不是自己的妻子无辜惨死进行亲子鉴定可避免惨剧</div>
+        <div class="otb">亲子鉴定<span class="time" style="margin-left:0.32rem">35分钟前</span></div>
+    </div>
+    <div class="content_text_info">后台上传内容</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+var Share;
+apiready=function(){
+    FastClick.attach(document.body);
+}
+document.getElementById('share').addEventListener('click',function(){
+	openshare({title:"分享至",arr:["微信好友","朋友圈","手机QQ","QQ空间","新浪微博","复制链接"]})
+})
+function openshare(option){
+    var defaults = {
+        title:'分享至',
+        arr:["微信好友","朋友圈","手机QQ","QQ空间","新浪微博","复制链接"]
+    };
+    var options = $.extend({},defaults,option);
+    if(typeof Share === 'object' && Share!=null)
+    {
+        //已经实例化分享对象；
+    }else {
+        Share = new ShareModule(options);
+    }
+    if(!$('#sharebox').length)
+    {
+        Share.open();
+    }
+}
+</script>
+</html>

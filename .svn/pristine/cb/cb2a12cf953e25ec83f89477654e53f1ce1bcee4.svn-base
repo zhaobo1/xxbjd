@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+<body>
+	<div id="headerbox">
+		<div id="header">
+			小帮鉴定
+		</div>
+	</div>
+    <div id="footerbox">
+	    <div id="footer">
+			<a href="#" class="item">
+				<i></i>
+				首 页
+			</a>
+			<a href="" class="item current">
+				<i></i>
+				咨 询
+			</a>
+			<a href="" class="item">
+				<i></i>
+				消 息
+			</a>
+			<a href="" class="item">
+				<i></i>
+				我 的
+			</a>
+	    </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/flexible.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        var header = $api.byId('headerbox');
+        var footer = $api.byId('footerbox');
+        //适配iOS7+，Android4.4+状态栏沉浸式效果，详见config文档statusBarAppearance字段
+        //$api.fixStatusBar(header);
+		//动态计算header的高度，因iOS7+和Android4.4+上支持沉浸式效果，
+		//因此header的实际高度可能为css样式中声明的44px加上设备状态栏高度
+		//其中，IOS状态栏高度为20px，Android为25px
+        var headerH = $api.offset(header).h;
+		//footer高度为css样式中声明的30px
+		var footerH = $api.offset(footer).h;
+		//frame的高度为当前window高度减去header和footer的高度
+		var frameH = api.winHeight - headerH - footerH;
+        api.openFrame({
+            name: 'main',
+            url: 'html/main.html',
+            bounces: true,
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: frameH
+            }
+        });
+    };
+</script>
+</html>

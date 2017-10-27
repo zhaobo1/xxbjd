@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/message.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png"></a>
+        <span>祁同伟</span>
+        <i></i>
+    </header>
+
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+var hintChatBox
+apiready=function(){
+    hintChatBox = api.require('hintChatBox');
+}
+hintChatBox.open({
+switchButton: {
+    faceNormal: 'widget://image/chatBox_face1.png',
+    addNormal: 'widget://image/chatBox_add1.png',
+    keyboardNormal: 'widget://image/chatBox_key1.png'
+},
+sourcePath: 'widget://image/emotion',
+addButtons: [{
+    normal: 'widget://image/chatBox_album1.png',
+    title: '相册'
+}, {
+    normal: 'widget://image/chatBox_album1.png',
+    title: '相册'
+}]
+}, function(ret, err) {
+if (ret) {
+    alert(JSON.stringify(ret));
+} else {
+    alert(JSON.stringify(err));
+}
+});
+</script>
+</html>

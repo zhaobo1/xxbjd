@@ -1,0 +1,57 @@
+@import "common";
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+
+%flexstyle{
+    @extend %flex;
+    @extend %flexCenter-x;
+    @extend %flexCenter-y;
+}
+
+//底部按钮组；
+.btngroup{
+	@extend %flexstyle;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	left:0;
+	.item{
+		flex:1;
+		height: 1.32rem;
+		color: #fff;
+		@include font-dpr(12px);
+		text-align: center;
+		@extend %flexstyle;
+		justify-content: center;
+		img{
+			width: 0.56rem;
+			height: 0.56rem;
+			display: inline-block;
+			margin-right: 0.16rem;
+		}
+		&:first-child{
+			background-color:#318cf2;
+		}
+		&:last-child{
+			background-color:#3bce9d;
+			flex:2;
+			.gmai{
+				@include font-dpr(14px);
+				height: 0.56rem;
+				line-height:0.56rem;
+			}
+			.tw{
+				display: inline-block;
+				height:  0.56rem;
+				line-height: 0.56rem;
+				padding: 0 0.2rem;
+				background: rgba(34,34,34,.2);
+				margin-left: 0.16rem;
+			}
+		}
+		&:active{
+			background-color:red;
+		}
+	}
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+	<header>
+		咨询医生
+	</header>
+	<div class="content">
+		this is a list;
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript">
+	
+</script>
+</html>

@@ -1,0 +1,8 @@
+@import "common";
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+//底部按钮组；
+.btngroup{
+	@extend %btngroup_2;
+}

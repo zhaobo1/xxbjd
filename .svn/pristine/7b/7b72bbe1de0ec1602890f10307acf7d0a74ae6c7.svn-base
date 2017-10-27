@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/message.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header id="messageHeader">
+		消息
+	</header>
+	<div class="content">
+
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript">
+apiready=function(){
+	FastClick.attach(document.body);
+}
+apiready = function() {
+    var UIListView = api.require('UIListView');
+	var headerH = $api.offset($api.byId('messageHeader')).h;
+	UIListView.open({
+		rect:{
+			x:0,
+			y:headerH,
+			w:'auto',
+			h:api.winHeight - headerH,
+		},
+		data:[
+			{
+				uid: '1001',
+		        imgPath: 'widget://res/img/apicloud.png',
+		        title: '标题',
+		        subTitle: '子标题，说明文字',
+		        remark: '备注',
+		        icon: ''
+			},{
+				uid: '1001',
+		        imgPath: 'widget://res/img/apicloud.png',
+		        title: '标题',
+		        subTitle: '子标题，说明文字',
+		        remark: '备注',
+		        icon: ''
+			}
+		],
+		rightBtns:[
+			{
+				bgColor: '#388e8e',
+		        activeBgColor: '',
+		        width: 70,
+		        title: '按钮',
+		        titleSize: 12,
+		        titleColor: '#fff',
+		        icon: '',
+		        iconWidth: 20
+			}
+		],
+		fixedOn: api.message,
+	},function(ret,err){
+			
+	})
+}
+
+</script>
+</html>

@@ -1,0 +1,15 @@
+@import "common";
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+
+%flexstyle{
+    @extend %flex;
+    @extend %flexCenter-x;
+    @extend %flexCenter-y;
+}
+
+//底部按钮组；
+.btngroup{
+	@extend %btngroup_2;
+}

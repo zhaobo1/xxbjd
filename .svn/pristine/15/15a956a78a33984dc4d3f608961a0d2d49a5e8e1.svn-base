@@ -1,0 +1,70 @@
+@import 'common';
+html,body{
+	background-color:#f4f4f4;
+	height:100vh;
+
+}
+.topbox{
+	@extend %flexStyle;
+	height:3.2rem;
+	box-sizing:border-box;
+	padding:0 0.32rem;
+	background:url(../image/hdbg.png) no-repeat center;
+	background-size:cover;
+	img{
+		display: block;
+		height: 1.6rem;
+		width: 1.6rem;
+		@include borderR(50%);
+	}
+	.username{
+		@include font-dpr(15px);
+		color: #fff;
+		margin-left: 0.32rem;
+	}
+}
+//我的功能模块
+.functions{
+	background-color:#fff;
+	box-sizing:border-box;
+	border-bottom:1px solid #e5e4e4;
+	.itembox{
+		padding-left: 0.32rem;
+		&:last-child .item{
+			border-bottom:none;
+		}
+	}
+	.item{
+		@extend %flexStyle;
+		color: #000;
+		@include font-dpr(14px);
+		position: relative;
+		padding: 0.32rem 0;
+		border-bottom:1px solid #e5e4e4;
+		.lefticon{
+			width: 0.56rem;
+			height: 0.56rem;
+		}
+		.text{
+			margin-left: 0.32rem;
+		}
+		.tel{
+			color: #999;
+			@include font-dpr(14px);
+		}
+		.righticon{
+			width: 0.2rem;
+			height: 0.4rem;
+			top:0.4rem;
+			position:absolute;
+			right:0.32rem;
+		}
+	}
+	&+.functions{
+		margin-top: 0.32rem;
+		border-top:1px solid #e5e4e4;
+	}
+}
+.hover{
+	background-color: #f4f4f4;
+}

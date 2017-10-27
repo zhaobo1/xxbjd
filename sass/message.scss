@@ -1,0 +1,124 @@
+@import 'common';
+$borders:1px solid #e5e4e4;
+html,body{
+	background-color:#f4f4f4;
+	height:100%;
+	width:100%;
+}
+
+header{
+	height:1.173333rem;
+	line-height:1.173333rem;
+	color:#333;
+	@include font-dpr(18px);
+	text-align:center;
+	background-color:#fff;
+}
+
+//聊天框
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.chatbody{
+	padding: 0.32rem 0.32rem 0 0.32rem;
+	background: #f4f4f4;
+	overflow-y: auto;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	.receive{
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		margin-bottom: 0.72rem;
+		img.head{
+			width: 1.066667rem;
+			height: 1.066667rem;
+			@include borderR(50%);
+		}
+		.textbox{
+			background: #fff;
+			color: #333;
+			@include font-dpr(12px);
+			padding: 0.32rem;
+			@include borderR(6px);
+			max-width: 43%;
+			margin-left: 0.64rem;
+			-webkit-box-shadow: 0px 1px 4px 1px rgba(198, 198, 198, 0.34);
+			        box-shadow: 0px 1px 4px 1px rgba(198, 198, 198, 0.34);
+			position: relative;
+			&:after{
+				position: absolute;
+				width: 0;
+				height: 0;
+				content: '';
+				top:0.32rem;
+				left: -0.4rem;
+				border: 0.2rem solid red;
+				border-color: transparent #fff transparent transparent;
+			}
+		}
+	}
+	.send{
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		margin-bottom: 0.72rem;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: reverse;
+		    -ms-flex-direction: row-reverse;
+		        flex-direction: row-reverse;
+		img.head{
+			width: 1.066667rem;
+			height: 1.066667rem;
+			@include borderR(50%);
+		}
+		.textbox{
+			background: #3bce9d;
+			color: #fff;
+			@include font-dpr(12px);
+			padding: 0.32rem;
+			@include borderR(6px);
+			max-width: 43%;
+			margin-right: 0.64rem;
+			position: relative;
+			&:after{
+				position: absolute;
+				width: 0;
+				height: 0;
+				content: '';
+				top:0.32rem;
+				right: -0.4rem;
+				border: 0.2rem solid red;
+				border-color: transparent transparent transparent #3bce9d;
+			}
+			&.voicebox{
+				background-color: #1d8b66;
+			}
+			&.voicebox:after{
+				border-color: transparent transparent transparent #1d8b66;
+			}
+		}
+	}
+}
+//发送图片中的遮罩层
+.imgsendmask{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+	top: 0px;
+	box-sizing: border-box;
+	left: 0;
+	padding: 0.32rem;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span{
+
+	}
+}
+footer{
+	height: 1.26rem;
+	background: #f4f4f4;
+}

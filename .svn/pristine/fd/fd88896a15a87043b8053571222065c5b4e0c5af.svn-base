@@ -1,0 +1,35 @@
+接口地址：http://139.224.220.248:8048/xiaobang/ 
+
+1，首页接口：GET: mpi/getHome  参数：Integer adSize（广告大小，默认3）, Integer  appraisalKindSize（鉴定分类，默认6）, Integer  appraisalPackageSize（鉴定套餐条数）, Integer  appraisalPackagePage（鉴定套餐页数）
+
+2，根据父级id获取鉴定百科接口：GET: mpi/getBaike  参数：String parentId（空则查询第一级）
+
+3，获取伤残等级接口：GET: mpi/getDisabilityClass  参数：String parentId（空则查询第一级）
+
+4，机构信息列表：GET:mpi/findCompany  参数：Integer page, Integer size,String sheng(可选)
+
+5，机构详情：GET:mpi/findCompanyById  参数：String id
+
+6，专家列表：GET:mpi/getDoctor  参数：Integer page, Integer size
+
+7，专家详情：GET:mpi/getDoctorById  参数：String id
+
+8，专家详情：GET:mpi/getDoctorById  参数：String id
+
+
+9，鉴定资讯：GET:mpi/news  参数：Integer page, Integer size
+
+10，资讯详情：GET:mpi/getNewsById  参数：int id
+
+11，鉴定评估等级：GET:mpi/assesstype  参数：无
+
+12，保存鉴定评估：GET:mpi/saveAssessOrder  参数：String type（评估等级，汉字）, String contacts（联系人）, String phone, String user_id, String money, String description（描述）
+
+13，预约鉴定分类：GET:mpi/classification  参数：无
+
+
+
+
+
+医生端：
+1，费用设定：POST:/mpi/doctor/updateInfo  参数：Integer id,  String company, String labels, String city, String businessAge, String askMoeny, String info

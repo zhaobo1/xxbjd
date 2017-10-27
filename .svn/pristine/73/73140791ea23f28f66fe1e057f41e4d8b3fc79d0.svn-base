@@ -1,0 +1,76 @@
+@import 'common';
+$borders:1px solid #e5e4e4;
+html,body{
+    height: 100%;
+    background-color: #f4f4f4;
+}
+%flexStyle{
+    @extend %flex;
+    @extend %flexCenter-x;
+    @extend %flexCenter-y;
+}
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.item_box{
+    padding-left: 0.32rem;
+    background-color: #fff;
+    border-bottom: $borders;
+    .item{
+        border-bottom: $borders;
+        box-sizing: border-box;
+        &:last-child{
+            border-bottom: none;
+        }
+        @extend %flexStyle;
+        justify-content: space-between;
+        padding: 0.32rem 0;
+        div.left{
+            @extend %flexStyle;
+            @include font-dpr(14px);
+            color: #000;
+            img{
+                width: 0.533333rem;
+                height: 0.533333rem;
+                margin-right: 0.32rem;
+            }
+        }
+        div.right{
+            @include font-dpr(14px);
+            color: #bcbcbc;
+            margin-right: 0.32rem;
+            //开关
+            .switch{
+                width: 1.1rem;
+                background-color: #3bce9d;
+                @extend %flexStyle;
+                border-radius: 0.5rem;
+                div.ball{
+                    height: 0.6rem;
+                    width: 0.6rem;
+                    background-color: #fff;
+                    @include borderR(50%);
+                    padding: 0.04rem;
+                    background-clip: content-box;
+                }
+                &.close{
+                    background-color: #808080;
+                }
+            }
+        }
+    }
+}
+//退出登录
+.outlogin{
+    height: 1.2rem;
+    box-sizing: border-box;
+    border-top:$borders;
+    background-color: #fff;
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2rem;
+    color: #555;
+    @include font-dpr(15px);
+}

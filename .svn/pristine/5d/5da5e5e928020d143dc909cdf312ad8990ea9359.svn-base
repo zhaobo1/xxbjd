@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/message.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="newWindowbackHeader" id="herd" style="background-color:#fff">
+        <a class="back"><img src="../image/back.png"></a>
+        <span id="titlename"></span>
+        <i></i>
+    </header>
+    <footer id="footer"></footer>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+    var UIChatBox, rongCloud2;
+
+    function inital(name) {
+        var head = $api.byId('head');
+        var footer = $api.byId('footer');
+        api.openFrame({
+            name: 'messagewindow',
+            url: './messagewindow.html',
+            rect: {
+                x: 0,
+                y: $api.offset(head).h,
+                w: 'auto',
+                h: api.frameHeight - $api.offset(head).h - $api.offset(footer).h
+            },
+            pageParam: {
+                duifangid: api.pageParam.duifangid
+            },
+            bounces: true,
+            bgColor: 'red',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
+
+        UIChatBox.open({
+            placeholder: '',
+            maxRows: 4,
+            emotionPath: 'widget://image/emotion',
+            texts: {
+                recordBtn: {
+                    normalTitle: '按住说话',
+                    activeTitle: '松开结束'
+                },
+                sendBtn: {
+                    title: 'send'
+                }
+            },
+            styles: {
+                inputBar: {
+                    borderColor: '#d9d9d9',
+                    bgColor: '#f2f2f2'
+                },
+                inputBox: {
+                    borderColor: '#B3B3B3',
+                    bgColor: '#FFFFFF'
+                },
+                emotionBtn: {
+                    normalImg: 'widget://image/face1.png'
+                },
+                extrasBtn: {
+                    normalImg: 'widget://image/add1.png'
+                },
+                keyboardBtn: {
+                    normalImg: 'widget://image/key1.png'
+                },
+                speechBtn: {
+                    normalImg: 'widget://image/cam1.png'
+                },
+                recordBtn: {
+                    normalBg: '#c4c4c4',
+                    activeBg: '#999999',
+                    color: '#000',
+                    size: 14
+                },
+                indicator: {
+                    target: 'both',
+                    color: '#c4c4c4',
+                    activeColor: '#9e9e9e'
+                },
+                sendBtn: {
+                    titleColor: '#4cc518',
+                    bg: '#999999',
+                    activeBg: '#46a91e',
+                    titleSize: 14
+                }
+            },
+            extras: {
+                titleSize: 10,
+                titleColor: '#a3a3a3',
+                btns: [{
+                    title: '图片',
+                    normalImg: 'widget://image/album1.png',
+                    activeImg: 'widget://image/album2.png'
+                }, {
+                    title: '位置',
+                    normalImg: 'widget://image/loc1.png',
+                    activeImg: 'widget://image/loc2.png'
+                }]
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.eventType == 'send') {
+                    //发送纯文本消息；
+                    var text = ret.msg;
+                    rongCloud2.sendTextMessage({
+                        conversationType: 'PRIVATE',
+                        targetId: api.pageParam.duifangid,
+                        text: text,
+                        extra:(Xiaobang.getuser()).userpic
+                    }, function(ret, err) {
+                        if (ret.status == 'prepare') {
+                            //api.toast({ msg: JSON.stringify(ret.result.message) });
+                        } else if (ret.status == 'success') {
+                            api.sendEvent({
+                                name: 'sendSuccess',
+                                extra: {
+                                    content: {
+                                        text: text,
+                                    }
+                                }
+                            });
+                            //收起键盘
+                            UIChatBox.closeKeyboard();
+                        } else if (ret.status == 'error') {
+                            api.toast({
+                                msg: err.code
+                            });
+                        }
+                    });
+                }
+                if (ret.eventType == 'clickExtras') {
+                    if (ret.index == 0) {
+                        //发送图片
+                        uploadimgFn();
+                    } else {
+                        //发送位置
+                    }
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        //添加发送语音功能
+        //按下开始录音
+        UIChatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press'
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+                api.startRecord({
+                    path: 'fs://a.amr'
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        //松开，完成录音
+        UIChatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press_cancel'
+        }, function(ret, err) {
+            if (ret) {
+                api.stopRecord(function(ret, err){
+                    if(ret){
+                        //返回录音地址；和时长
+                         var path = ret.path;
+                         var duration = ret.duration;
+                         if(duration>=3)
+                         {
+                             rongCloud2.sendVoiceMessage({
+                                 conversationType: 'PRIVATE',
+                                 targetId: api.pageParam.duifangid,
+                                 voicePath: path,
+                                 duration: duration,
+                                 extra:(Xiaobang.getuser()).userpic
+                             },function(ret,err){
+                                 if(ret.status=='success')
+                                 {
+                                     //发送成功
+                                     api.sendEvent({
+                                         name: 'voicesuccess',
+                                         extra: {
+                                             content:{
+                                                 voicePath:path,
+                                                 duration:duration
+                                             }
+                                         }
+                                     });
+
+                                 }
+                             })
+                         }
+                    }
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function uploadimgFn() {
+        //首先调用系统actionsheet，
+        api.actionSheet({
+            title: '发送图片',
+            cancelTitle: '取消',
+            buttons: ['拍照', '手机相册']
+        }, function(ret, err) {
+            if (ret) {
+                // alert( JSON.stringify( ret ) );
+                var defaults = {
+                    sourceType: 'camera',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: false,
+                    quality: 100,
+                    //  targetWidth: 100,
+                    //  targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }
+                if (ret.buttonIndex == 1) {
+                    //拍照
+                    var option = $.extend({}, defaults, {
+                        sourceType: 'camera'
+                    })
+                    api.getPicture(option, function(ret, err) {
+                        if (ret) {
+                            alert(JSON.stringify(ret));
+                        } else {
+                            alert(JSON.stringify(err));
+                        }
+                    });
+
+                } else if (ret.buttonIndex == 2) {
+                    //手机相册
+                    var option = $.extend({}, defaults, {
+                        sourceType: 'album'
+                    });
+                    api.getPicture(option, function(ret, err) {
+                        if (ret) {
+                            var src = ret.data;
+                            //alert("fs://"+ret.data);
+                            rongCloud2.sendImageMessage({
+                                conversationType: 'PRIVATE',
+                                targetId: api.pageParam.duifangid,
+                                imagePath: ret.data,
+                                extra:(Xiaobang.getuser()).userpic
+                            }, function(ret, err) {
+                                if (ret.status == 'prepare') {
+                                    //先生成本地预览，然后发送进度条，最后发送成功；
+                                    api.sendEvent({
+                                        name: 'imgprepare',
+                                        extra: {
+                                            content: {
+                                                imageUrl: 'file://' + src,
+                                                isprepare: true
+                                            }
+                                        }
+                                    });
+                                } else if (ret.status == 'progress') {
+                                    //发送中显示进度；
+                                    var progress = ret.result.progress;
+                                    api.sendEvent({
+                                        name: 'imgprogress',
+                                        extra: {
+                                            progress: progress,
+                                        }
+                                    });
+                                } else if (ret.status == 'success') {
+                                    $('.imgsendmask').remove();
+                                    //收起键盘
+                                    UIChatBox.closeKeyboard();
+                                } else if (ret.status == 'error') {
+                                    api.toast({
+                                        msg: err.code
+                                    });
+                                }
+                            })
+                        } else {
+                            alert(JSON.stringify(err));
+                        }
+                    });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    apiready = function() {
+            UIChatBox = api.require('UIChatBox');
+            rongCloud2 = api.require("rongCloud2");
+            //check_login
+            Xiaobang.islogin(inital, {
+                isBackwardToLogin: false,
+                showbutton: true
+            });
+            //登录成功事件监听
+            api.addEventListener({
+                name: 'loginsuccess'
+            }, function(ret, err) {
+                if (ret) {
+                    var user = Xiaobang.getuser();
+                    rongCloud2.init(function(ret, err) {
+                        if (ret.status == 'error')
+                            api.toast({
+                                msg: err.code
+                            });
+                    });
+                    rongCloud2.connect({
+                        token: user.token
+                    }, function(ret, err) {
+                        if (ret.status == 'success') {
+                            //返回登录融云用户的ID；
+                            api.toast({
+                                msg: ret.result.userId
+                            });
+                        }
+                    });
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        }
+        //修改title名称为当前聊天人的姓名；
+    function changename() {
+        var titlename = $api.byId('titlename');
+        $api.html(titlename, $api.getStorage('titlename'));
+    }
+    //接收到消息后从新渲染消息列表
+</script>
+
+</html>

@@ -1,0 +1,21 @@
+@import 'common';
+$borders:1px solid #e5e4e4;
+html,body{
+	background-color:#f4f4f4;
+	height:100%;
+	width:100%;
+}
+
+header{
+	height:1.173333rem;
+	line-height:1.173333rem;
+	color:#333;
+	@include font-dpr(18px);
+	text-align:center;
+	background-color:#fff;
+}
+
+//聊天框
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jdbk.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .dataclass{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="newWindowbackHeader" style="z-index:9">
+        <a class="back"><img src="../image/back.png"></a>
+		<span>伤残等级鉴定</span>
+		<i></i>
+    </header>
+    <div class="main_box">
+        <div class="left">
+        </div>
+        <div class="right">
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/interface.js"></script>
+<script>
+var id,clickid;
+$(document).on('click','.right>.item',function(){
+    api.openWin({
+        name: 'sc_level_info',
+        url: './sc_level_info.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+});
+$(document).on('click','.left>.item',function(){
+    clickid = $(this).attr('data-id');
+    var that = $(this)
+    xbinterface.getDisabilityClass('mpi/getDisabilityClass',clickid,function(data){
+        createitem(data['data'],'right');
+        that.addClass('active').siblings().removeClass('active');
+    });
+})
+apiready=function(){
+    id = api.pageParam.id||'';
+    xbinterface.getDisabilityClass('mpi/getDisabilityClass',id,function(data){
+        createitem(data['data']);
+    });
+}
+
+function createitem(data,str) {
+    console.log(JSON.stringify(data))
+    var lefthtml = '';
+    var righthtml = '';
+    if(str=='right')
+    {
+        //只渲染右边；
+        if(data.length)
+        {
+            for (var i = 0; i < data.length; i++) {
+                righthtml+='<div class="item" tapmode data-id='+data[i].BAIKE_ID+'>'+
+                                '<span>'+data[i].NAME+'</span><img src="../image/myicon5.png" alt="">'+
+                            '</div>';
+            }
+            $('.right').removeClass('dataclass');
+        }else {
+            righthtml+='暂无内容';
+            $('.right').addClass('dataclass');
+        }
+        $('.right').html(righthtml);
+    }else{
+        for (var i = 0; i < data.length; i++) {
+            lefthtml+='<div class="item" tapmode data-id='+data[i].BAIKE_ID+'>'+data[i].NAME+'</div>';
+        }
+        $('.left').html(lefthtml);
+    }
+    api.parseTapmode();
+}
+
+</script>
+</html>

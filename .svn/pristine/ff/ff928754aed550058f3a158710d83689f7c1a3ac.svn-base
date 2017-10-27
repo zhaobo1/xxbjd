@@ -1,0 +1,276 @@
+@import 'common';
+html,body{
+	background-color:#f4f4f4;
+}
+%flexstyle{
+	@extend %flex;
+	@extend %flexCenter-x;
+	@extend %flexCenter-y;
+}
+$borders:1px solid #e5e4e4;
+.doctor_home_header{
+	height:1.173333rem;
+	background-color:#3bce9d;
+	border-bottom:$borders;
+	border-color:#3bce9d;
+	@extend %flexstyle;
+	justify-content:space-between;
+	-webkit-justify-content:space-between;
+	-ms-justify-content:space-between;
+	box-sizing:border-box;
+	padding:0 0.32rem;
+	.back{
+		width: 0.4rem;
+		height: 0.72rem;
+	}
+	.share{
+		width: 0.533333rem;
+		height: 0.48rem;
+	}
+	span{
+		color: #fff;
+		@include font-dpr(18px);
+	}
+}
+//头部信息
+.topinfo{
+	height:2.8rem;
+	background-color:#3bce9d;
+	@extend %flexstyle;
+	padding:0 0.32rem;
+	box-sizing:border-box;
+	img{
+		width: 1.6rem;
+		height: 1.6rem;
+		@include borderR(50%);
+		margin-right: 0.2rem;
+	}
+	.item{
+		color: #fff;
+		.name{
+			@include font-dpr(14px);
+		}
+		.belong{
+			@include font-dpr(11px);
+			margin:0.08rem 0 0.32rem 0;
+		}
+		.tagbox{
+			font-size: 0;
+		}
+		.tag{
+			padding: 0.16rem 0.2rem;
+			color: #3bce9d;
+			@include font-dpr(9px);
+			background: #fff;
+			border-radius:15px;
+			margin-right: 0.2rem;
+		}
+	}
+}
+%title{
+	@include font-dpr(15px);
+	color:#000;
+	border-left:4px solid #3bce9d;
+	text-indent:0.266667rem;
+}
+//互动服务
+.server{
+	background-color:#fff;
+	padding:0.32rem 0 0 0;
+	.title{
+		@extend %title;
+	}
+	.item{
+		border-bottom:$borders;
+		padding: 0.4rem 0 0.56rem 0;
+		.box{
+			padding:0 0.32rem;
+			@extend %flexstyle;
+			position:relative;
+			img{
+				width: 1.04rem;
+				height: 1.04rem;
+				display: block;
+			}
+			div.infos{
+				margin-left: 0.2rem;
+				.name{
+					@include font-dpr(14px);
+					color:#000;
+				}
+				.tips{
+					@include font-dpr(12px);
+					color: #777;
+					margin-top: 0.32rem;
+				}
+				span{
+					@include font-dpr(13px);
+					color: #f76f01;
+					position:absolute;
+					right:0.32rem;
+					top:0;
+				}
+			}
+		}
+	}
+}
+
+//专家介绍；
+.doctor_des{
+	border-top:$borders;
+	border-bottom:$borders;
+	margin:0.36rem 0;
+	background-color:#fff;
+	padding:0.32rem 0 0 0;
+	.title{
+		@extend %title;
+	}
+	.des_box{
+		padding: 0.32rem;
+		table{
+			width: 100%;
+			border:$borders;
+			td{
+				border:$borders;
+				height: 0.8rem;
+				font-size: 0;
+				span.titles{
+					color: #777;
+					@include font-dpr(13px);
+					margin-left:0.24rem;
+				}
+				span.nr{
+					color: #000;
+					@include font-dpr(13px);
+				}
+			}
+			tr:last-child{
+				.nr{
+					color: #999;
+					margin-right: 0.32rem;
+				}
+			}
+		}
+		.text{
+			color: #777;
+			margin-top: 0.32rem;
+			line-height: 1.5;
+			@include font-dpr(14px);
+		}
+	}
+}
+//评论部分；
+.comment{
+	background-color:#fff;
+	border-top:$borders;
+	background-color:#fff;
+	padding:0.32rem 0 0 0;
+	.title{
+		@extend %flexstyle;
+		@extend %title;
+		justify-content: space-between;
+		padding-right:0.32rem;
+		div{
+			color: #999;
+			@include font-dpr(12px);
+			label{
+				display: inline;
+				@include font-dpr(15px);
+				color: #000;
+				margin-right: 0.32rem;
+			}
+			span{
+				color: #999;
+				@include font-dpr(12px);
+				display: inline;
+			}
+		}
+		img{
+			height: 0.48rem;
+		}
+	}
+	.commentlist{
+		margin-top: 0.12rem;
+		li{
+			border-bottom:$borders;
+			padding: 0.32rem;
+			&:last-child{
+				border-bottom:none;
+			}
+			div.top{
+				@extend %flexstyle;
+				justify-content: space-between;
+				.left{
+					span.name{
+						display: inline;
+						@include font-dpr(12px);
+						color: #333;
+					}
+					span.time{
+						display: inline;
+						@include font-dpr(11px);
+						color: #bfbfbf;
+					}
+				}
+				.right{
+					font-size: 0;
+					img{
+						width: 0.32rem;
+						display: inline-block;
+					}
+				}
+			}
+			div.nrs{
+				color: #777;
+				@include font-dpr(12px);
+				margin-top: 0.4rem;
+			}
+		}
+	}
+}
+//底部按钮组；
+.btngroup{
+	@extend %flexstyle;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	left:0;
+	.item{
+		flex:1;
+		height: 1.32rem;
+		color: #fff;
+		@include font-dpr(12px);
+		text-align: center;
+		@extend %flexstyle;
+		justify-content: center;
+		img{
+			width: 0.56rem;
+			height: 0.56rem;
+			display: inline-block;
+			margin-right: 0.16rem;
+		}
+		&:first-child{
+			background-color:#318cf2;
+		}
+		&:last-child{
+			background-color:#3bce9d;	
+			flex:2;
+			.gmai{
+				@include font-dpr(14px);
+				height: 0.56rem;
+				line-height:0.56rem;
+			}
+			.tw{
+				display: inline-block;
+				height:  0.56rem;
+				line-height: 0.56rem;
+				padding: 0 0.2rem;
+				background: rgba(34,34,34,.2);
+				margin-left: 0.16rem;
+			}
+		}
+		&:active{
+			background-color:red;
+		}
+	}
+}

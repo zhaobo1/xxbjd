@@ -1,0 +1,41 @@
+var Xiaobang = {
+  config:{
+    ip:,
+    isBackwardToLogin:false
+  },
+  islogin:function(callback){
+    var user = Xiaobang.getuser();
+    var isUnLogin = user == null || (typeof user === 'string');
+    if(isUnLogin)
+    {
+      if(Xiaobang.config.isBackwardToLogin)
+      {
+        //跳转到登录界面
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }else {
+        $api.toast('温馨提示', '您暂未登录', 1500);
+      }
+    }else{
+      //如果登录则执行登录后的逻辑；
+      if(typeof callback === 'function')
+      {
+        callback(user.userName);
+      }
+    }
+  },
+  loginout:function(){
+    $api.rmStorage('user');
+  },
+  getuser:function(){
+    return $api.getStorage('user');
+  },
+  saveuser:function(user){
+    $api.setStorage('user', user);
+  }
+}

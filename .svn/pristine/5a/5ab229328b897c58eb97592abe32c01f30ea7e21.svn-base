@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/about_protocol.css" />
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader" id="header">
+		<a class="back"><img src="../image/back.png"></a>
+		<span>关于小帮鉴定</span>
+		<i></i>
+	</header>
+    <div class="content_text">
+        关于小帮鉴定内容；
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+</html>

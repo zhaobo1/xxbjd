@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/message.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader" id="herd">
+        <a class="back"><img src="../image/back.png"></a>
+        <span>祁同伟</span>
+        <i></i>
+    </header>
+    <div class="chatbody" id="body">
+        <div class="receive">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">祁厅长我今天去市里视察工作
+被电马儿撞了，能评工伤不？</div>
+        </div>
+        <div class="send">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">亲爱的母亲</div>
+        </div>
+        <div class="receive">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">祁厅长我今天去市里视察工作
+被电马儿撞了，能评工伤不？</div>
+        </div>
+        <div class="send">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">亲爱的母亲</div>
+        </div>
+        <div class="receive">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">祁厅长我今天去市里视察工作
+被电马儿撞了，能评工伤不？</div>
+        </div>
+        <div class="send">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">亲爱的母亲</div>
+        </div>
+        <div class="receive">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">祁厅长我今天去市里视察工作
+被电马儿撞了，能评工伤不？</div>
+        </div>
+        <div class="send">
+            <img src="../image/tx.jpg" class="head" alt="">
+            <div class="textbox">亲爱的母亲</div>
+        </div>
+    </div>
+    <footer id="footer">
+        zheli shi
+    </footer>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+    apiready = function(){
+        var hdom = $api.byId('herd');
+        var fdom = $api.byId('footer');
+        var h = api.winHeight - $api.offset(hdom).h - $api.offset(fdom).h;
+        console.log(h)
+        $('#body').css('height',h);
+    }
+</script>
+</html>

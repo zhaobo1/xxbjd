@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+	<header id="headerbox">
+		<div id="header">
+			<div class="item">
+				<span onclick="changeOrg('org',0)" tapmode>机构</span>
+			</div>
+			<div class="item current">
+				<span onclick="changeOrg('doctor',1)" tapmode>专家</span>
+			</div>
+		</div>
+	</header>
+  <!-- 当前数据量不多；刷新加载放在迭代版本中 -->
+  <div class="content">
+    <div class="listbox">
+      <ul class="list doctor_list">
+        <li class="v">
+        	<div class="item">
+				<img src="../image/t1.jpg" class="bigpic">
+				<img src="../image/v.png" class="vpng">
+        	</div>
+			<div class="item">
+				<div class="name">尼玛的</div>
+				<div class="belong">四川省第一人民医院司法鉴定所</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+				<div class="tagbox">
+					<span class="tag">伤残鉴定</span>
+					<span class="tag">电子数据鉴定</span>
+					<span class="tag">笔记鉴定</span>
+				</div>
+			</div>
+        </li>
+        <li>
+        	<div class="item">
+				<img src="../image/t1.jpg" class="bigpic">
+        	</div>
+			<div class="item">
+				<div class="name">尼玛的</div>
+				<div class="belong">四川省第一人民医院司法鉴定所</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+				<div class="tagbox">
+					<span class="tag">伤残鉴定</span>
+					<span class="tag">电子数据鉴定</span>
+					<span class="tag">笔记鉴定</span>
+				</div>
+			</div>
+        </li>
+                <li>
+        	<div class="item">
+				<img src="../image/t1.jpg" class="bigpic">
+        	</div>
+			<div class="item">
+				<div class="name">尼玛的</div>
+				<div class="belong">四川省第一人民医院司法鉴定所</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+				<div class="tagbox">
+					<span class="tag">伤残鉴定</span>
+					<span class="tag">电子数据鉴定</span>
+					<span class="tag">笔记鉴定</span>
+				</div>
+			</div>
+        </li>
+      </ul>
+      <ul class="list org_list">
+      	<li>
+			<div class="item">
+				<img src="../image/pic.png" alt="" class="bigpic">
+			</div>
+			<div class="item">
+				<div class="name">求实鉴定所</div>
+				<div class="num">许可证号：55161873</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+			</div>
+			<div class="chat"><img src="../image/chat.png" alt=""></div>
+      	</li>
+      	<li>
+			<div class="item">
+				<img src="../image/pic.png" alt="" class="bigpic">
+			</div>
+			<div class="item">
+				<div class="name">求实鉴定所</div>
+				<div class="num">许可证号：55161873</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+			</div>
+			<div class="chat"><img src="../image/chat.png" alt=""></div>
+      	</li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript">
+var frameH,footerH,headerH;
+//机构，专家切换
+var strinit = 'doctor';
+function changeOrg(str,index){
+  	if(str === strinit){
+  		return false;
+  	}
+    var changeItem = $api.domAll(document.getElementById('header'),'.item');
+    $api.addCls(changeItem[index], 'current');
+    if(index==0)
+    {
+      $api.removeCls(changeItem[1], 'current');
+    }else{
+      $api.removeCls(changeItem[0], 'current');
+    }
+		strinit = str;
+}
+//给机构列表添加事件监听，点击进入机构主页；携带机构ID；
+$api.addEvt(document.getElementsByClassName('org_list')[0], 'click', function(){
+	api.openWin({
+	    name: 'org_home',
+	    url: './org_home.html',
+	    pageParam: {
+	        id: '1'
+	    }
+	});
+},true);
+
+
+apiready = function(){
+  //监听事件
+  api.addEventListener({
+      name: 'myEvent'
+  }, function(ret, err){
+
+      if( ret ){
+          // alert( JSON.stringify( ret ) );
+      }else{
+          // alert( JSON.stringify( err ) );
+      }
+  });
+
+  //在当前window中找到名为frmName的frame，并在该frame中执行jsfun脚本
+var jsfun = 'funcGoto();';
+api.execScript({
+    name:'root',
+    script: jsfun
+});
+}
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/writePinlun.css" />
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader">
+		<a class="back"><img src="../image/back.png"></a>
+		<span>我来点评</span>
+		<i></i>
+	</header>
+    <div class="form">
+        <div class="title">
+            <div class="left">
+                <span>您的评论</span>
+            </div>
+            <div class="right">
+                <img src="../image/bigStart1.png" alt="" tapmode>
+                <img src="../image/bigStart1.png" alt="" tapmode>
+                <img src="../image/bigStart1.png" alt="" tapmode>
+                <img src="../image/bigStart1.png" alt="" tapmode>
+                <img src="../image/bigStart1.png" alt="" tapmode>
+            </div>
+        </div>
+        <textarea name="name" placeholder="最少输入7个字"></textarea>
+        <button type="button" name="button">提交评论</button>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+</html>

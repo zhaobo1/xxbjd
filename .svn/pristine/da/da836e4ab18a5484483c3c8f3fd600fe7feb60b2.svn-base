@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <title>小帮鉴定</title>
+</head>
+<body>
+	<div id="headerbox">
+		<div id="header">
+			小帮鉴定
+		</div>
+	</div>
+    <div class="content">
+		<div class="banner">
+			<a href="">
+				<img src="../image/banner.jpg" alt="">
+			</a>
+		</div>
+		<div class="grid-8">
+			<div class="item">
+				<img src="../image/grid8-1.png">
+				亲子鉴定
+			</div>
+			<div class="item" tapmode id="jdpu_form">
+				<img src="../image/grid8-2.png">
+				鉴定评估
+			</div>
+			<div class="item" tapmode="list_gray" onclick="myask('org')">
+				<img src="../image/grid8-3.png">
+				找鉴定所
+			</div>
+			<div class="item" tapmode="list_gray" onclick="myask('doctor')">
+				<img src="../image/grid8-4.png">
+				咨询专家
+			</div>
+			<div class="item" tapmode id="jdbk">
+				<img src="../image/grid8-5.png">
+				鉴定百科
+			</div>
+			<div class="item" tapmode id="yuyue">
+				<img src="../image/grid8-6.png">
+				预约鉴定
+			</div>
+			<div class="item" id="sc_level">
+				<img src="../image/grid8-7.png">
+				伤残等级查询
+			</div>
+			<div class="item" tapmode id="news">
+				<img src="../image/grid8-8.png">
+				鉴定资讯
+			</div>
+		</div>
+		<div class="jd-package">
+			<div class="title">
+				鉴定套餐
+			</div>
+			<div class="package-box">
+				<div class="item taocan">
+					<img src="../image/package.png">
+					<p class="name">个人亲子鉴定</p>
+					<p class="money">
+						<span>￥2630</span>/例（仅限常规样本）
+					</p>
+				</div>
+				<div class="item taocan">
+					<img src="../image/package.png">
+					<p class="name">上户口亲子鉴定</p>
+					<p class="money">
+						<span>￥2630</span>/三联体（父、母、子）
+					</p>
+				</div>
+				<div class="item taocan">
+					<img src="../image/package.png">
+					<p class="name">DNA无创产前鉴定</p>
+					<p class="money">
+						<span>￥2630</span>/例（安全无痛）
+					</p>
+				</div>
+				<div class="item taocan">
+					<img src="../image/package.png">
+					<p class="name">个体识别鉴定</p>
+					<p class="money">
+						<span>￥2630</span>/例（仅限常规样本）
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="grid-6">
+			<div class="item">
+				<img src="../image/grid6-1.png">
+				精神病鉴定
+			</div>
+			<div class="item">
+				<img src="../image/grid6-2.png">
+				声像资料鉴定
+			</div>
+			<div class="item">
+				<img src="../image/grid6-3.png">
+				毒物鉴定
+			</div>
+			<div class="item">
+				<img src="../image/grid6-4.png">
+				痕迹鉴定
+			</div>
+			<div class="item">
+				<img src="../image/grid6-5.png">
+				机动车鉴定
+			</div>
+			<div class="item">
+				<img src="../image/grid6-6.png">
+				文书司法鉴定
+			</div>
+		</div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script>
+   //咨询法医，查找鉴定所，分开写
+   var footerH,frameH,headerH;
+   function myask(str){
+       if(str==='org')
+       {
+           var option = {
+               name: 'root',
+               script: 'openFrame(2,\'org\');'
+           }
+       }else{
+           var option = {
+               name: 'root',
+               script: 'openFrame(2,\'doctor\');'  
+           }
+       }
+       api.execScript(option);
+   }
+
+  apiready=function(){
+      footerH = api.pageParam.footerH;
+      headerH = $api.offset($api.byId('headerbox')).h;
+      frameH = api.winHeight - footerH - headerH;
+      ;(function(){
+          [].forEach.call(arguments,function(m,i){
+              document.getElementById(m).addEventListener('click',function(){
+                  api.openWin({
+                      name: m,
+                      url: './'+m+'.html',
+                      pageParam: {
+                          name: 'test'
+                      }
+                  });
+              },true)
+          })
+      })('jdbk','jdpu_form','sc_level','news','yuyue');
+      //套餐点击跳转；
+      var taocanarr = document.getElementsByClassName('taocan');
+      [].forEach.call(taocanarr,function(m,i){
+          m.addEventListener('click',function(){
+            api.openWin({
+                name:'taocan',
+                url:'./taocan.html',
+                pageParam:{
+                    name:'test'
+                }
+            })
+        },true)
+      })
+    //监听事件
+    api.addEventListener({
+        name: 'myEvent'
+    }, function(ret, err){
+
+        if( ret ){
+             //alert( JSON.stringify( ret ) );
+        }else{
+             //alert( JSON.stringify( err ) );
+        }
+    });
+  }
+
+</script>
+</html>

@@ -1,0 +1,57 @@
+@import "common";
+html,body{
+    height: 100%;
+    background-color: #f4f4f4;
+}
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.form{
+    padding: 0.56rem 0.32rem;
+    .title{
+        @extend %flex;
+        @extend %flexCenter-x;
+        @extend %flexCenter-y;
+        justify-content: space-between;
+        .left{
+            @include font-dpr(14px);
+            color: #000;
+        }
+        .right{
+            font-size: 0;
+            img{
+                width: 0.56rem;
+                height: 0.56rem;
+                margin-left: 3px;
+            }
+        }
+    }
+    textarea{
+        display: block;
+        width: 100%;
+        margin-top: 0.32rem;
+        height: 2.826667rem;
+        padding: 0.32rem;
+        box-sizing: border-box;
+        border:1px solid #e5e4e4;
+        resize: none;
+        background-color: #fff;
+        color: #333;
+        @include font-dpr(11px);
+    }
+    button{
+        font-family: 'microsoft yahei';
+        background-color: #3bce9d;
+        @include font-dpr(15px);
+        text-align: center;
+        display: block;
+        border:none;
+        outline: none;
+        @include borderR(5px);
+        display: block;
+        width: 100%;
+        color: #fff;
+        margin: 0.56rem auto 0 auto;
+        height: 1.173333rem;
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/doctor_home.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header class="doctor_home_header" id="doctor_header">
+		<img class="back" src="../image/back2.png">
+		<span>专家主页</span>
+		<img class="share" id="share" src="../image/fenxiang2.png" alt="">
+	</header>
+	<div class="btngroup" id="doctor_btn">
+		<div class="item" tapmode="btn_blue" id="online">
+			<img src="../image/zixun.png" alt="" >咨询客服</div>
+		<div class="item" tapmode="btn_green">
+			<span class="gmai">购买服务</span>
+			<span class="tw">图文/电话</span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+document.getElementById('online').addEventListener('click',function() {
+
+})
+apiready=function(){
+	FastClick.attach(document.body);
+	var header = $api.byId('doctor_header');
+	var footer = $api.byId('doctor_btn');
+	var frameH = api.winHeight - $api.offset(header).h - $api.offset(footer).h;
+	api.openFrame({
+	    name: 'doctor_info',
+	    url: './doctor_home_info.html',
+	    rect: {
+	        x: 0,
+	        y: $api.offset(header).h,
+	        w: 'auto',
+	        h: frameH
+	    },
+	    pageParam: {
+	        id: '1'
+	    },
+	    bounces: true
+	});
+}
+document.getElementById('share').addEventListener('click',function(){
+	//点击分享触发org_infoframe中的分享实例化
+	api.execScript({
+	    frameName: 'doctor_info',
+	    script: 'openshare({title:"分享至",arr:["微信好友","朋友圈","手机QQ","QQ空间","新浪微博","复制链接"]});'
+	});
+})
+</script>
+</html>

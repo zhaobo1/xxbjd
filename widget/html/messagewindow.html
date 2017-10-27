@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/message.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="chatbody" id="body">
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+    var rongCloud2, latestMessageId, hasChild, firstDomo;
+
+    function getHistoryM() {
+        rongCloud2.getHistoryMessages({
+            conversationType: 'PRIVATE',
+            targetId: api.pageParam.duifangid,
+            oldestMessageId: latestMessageId || -1,
+            count: 20
+        }, function(ret, err) {
+            //alert(JSON.stringify(ret.result));
+            //填充HTML； 因为是按时间倒叙排序的，所有这里需要反转数组；
+            if (ret.result.length != 0) {
+                var messagedata = (ret.result).reverse();
+                latestMessageId = messagedata[0].messageId;
+                for (var i = 0; i < messagedata.length; i++) {
+                    var messageone = messagedata[i];
+                    if (messageone.messageDirection == 'RECEIVE') {
+                        var htmls = Xiaobang.create_Receive(messageone);
+                    } else {
+                        var htmls = Xiaobang.create_Send(messageone);
+                    }
+                    if (hasChild) {
+                        $(firstDomo).before(htmls);
+                    } else {
+                        $('#body').append(htmls);
+                    }
+                }
+                setTimeout(function() {
+                    api.refreshHeaderLoadDone();
+                }, 500);
+            } else {
+                api.toast({
+                    msg: '没有历史消息了！'
+                });
+                setTimeout(function() {
+                    api.refreshHeaderLoadDone();
+                }, 500);
+            }
+        });
+    }
+
+    function inital(name) {
+        //添加接收到消息的回调
+        api.addEventListener({
+            name: 'getmessage'
+        }, function(ret, err) {
+            if (ret) {
+                var htmls = Xiaobang.create_Receive(ret.value.message);
+                $('#body').append(htmls);
+                if (!latestMessageId) {
+                    latestMessageId = ret.value.message.messageId;
+                }
+                //latestMessageId = ret.value.message.messageId;
+                rongCloud2.setMessageReceivedStatus({
+                    messageId: ret.value.message.messageId,
+                    receivedStatus: 'READ'
+                }, function(ret, err) {
+                    //设置成已读后，从新获取未读消息函数，获取新的未读消息；
+                    if (ret.status == 'success') {
+                        api.execScript({
+                            name: 'root',
+                            script: 'getUnreadCount();'
+                        });
+                    }
+                })
+            }
+        });
+
+        //获取某一会话的最新消息记录
+        rongCloud2.getLatestMessages({
+            conversationType: 'PRIVATE',
+            targetId: api.pageParam.duifangid,
+            count: 20
+        }, function(ret, err) {
+            //alert(JSON.stringify(ret.result));
+            // 因为是按时间倒叙排序的，所有这里需要反转数组；
+            if (ret.result.length != 0) {
+                var messagedata = (ret.result).reverse();
+                latestMessageId = messagedata[0].messageId;
+                for (var i = 0; i < messagedata.length; i++) {
+                    var messageone = messagedata[i];
+                    if (messageone.messageDirection == 'RECEIVE') {
+                        var htmls = Xiaobang.create_Receive(messageone);
+                    } else {
+                        var htmls = Xiaobang.create_Send(messageone);
+                    }
+                    if (hasChild) {
+                        $(firstDomo).before(htmls);
+                    } else {
+                        $('#body').append(htmls);
+                        document.getElementById('body').scrollIntoView(false);
+                    }
+                    //将所有未读消息设置成已读状态
+                    rongCloud2.setMessageReceivedStatus({
+                        messageId: messageone.messageId,
+                        receivedStatus: 'READ'
+                    }, function(ret, err) {
+                        //api.toast({ msg: ret.status });
+                        //设置成已读后，从新获取未读消息函数，获取新的未读消息；
+                        if (ret.status == 'success') {
+                            api.execScript({
+                                name: 'root',
+                                script: 'getUnreadCount();'
+                            });
+                        }
+                    });
+                }
+            }
+        })
+
+        // 下拉获取历史消息,暂时不做，有问题
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function(ret, err) {
+            if ($('#body').find('.receive').length != 0 || $('#body').find('.send').length != 0) {
+                hasChild = true;
+                firstDomo = ($('#body').children())[0];
+            } else {
+                hasChild = false;
+            }
+            //获取历史消息；
+            getHistoryM();
+        });
+    }
+    apiready = function() {
+        rongCloud2 = api.require("rongCloud2");
+        Xiaobang.islogin(inital, {
+            isBackwardToLogin: false,
+            showbutton: true
+        });
+        //文字消息发送成功监听
+        api.addEventListener({
+            name: 'sendSuccess'
+        }, function(ret, err) {
+            if (ret) {
+                var html = Xiaobang.create_Send(ret.value);
+                $('#body').append(html);
+                document.getElementById('body').scrollIntoView(false);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        //图片消息发送成功监听
+        api.addEventListener({
+            name: 'imgprepare'
+        }, function(ret, err) {
+            if (ret) {
+                var html = Xiaobang.create_Send(ret.value);
+                $('#body').append(html);
+                document.getElementById('body').scrollIntoView(false);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        //发送图片进度的监听；
+        api.addEventListener({
+            name: 'imgprogress'
+        }, function(ret, err) {
+            if (ret) {
+                var progress = ret.value.progress;
+                if (progress !== 100) {
+                    $('.imgsendmask>span').html(ret.value.progress + '%');
+                } else {
+                    $('.imgsendmask').remove();
+                }
+            } else {}
+        });
+        //语音消息发送成功的监听；
+        api.addEventListener({
+            name: 'vsuccess'
+        }, function(ret, err){
+            if( ret ){
+                var html = Xiaobang.create_Send(ret.value);
+                $('#body').append(html);
+                document.getElementById('body').scrollIntoView(false);
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+        //播放语音函数
+        $(document).on('click','.voicebox',function(){
+            var path = $(this).attr('data-path');
+            api.startPlay({
+                path: path
+            }, function(ret, err){
+                if( ret ){
+                     //alert( JSON.stringify( ret ) );
+                }else{
+                     //alert( JSON.stringify( err ) );
+                }
+            });
+
+        })
+        //触发修改title的名称
+        api.execScript({
+            name: 'messageIframe',
+            script: 'changename()'
+        });
+    }
+</script>
+
+</html>

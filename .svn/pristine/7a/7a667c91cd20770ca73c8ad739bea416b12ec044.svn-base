@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/news.css">
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png" alt=""></a>
+        <span>鉴定咨询</span>
+        <i></i>
+    </header>
+    <div class="newslist">
+        <div class="item" tapmode="item_hover">
+            <div class="left">
+                <div class="name">司法亲子鉴定与个人亲子鉴定的区别是什么？</div>
+                <div class="btom">亲子鉴定<span class="time">35分钟前</span></div>
+            </div>
+            <div class="right">
+                <img src="../image/newslist.jpg" alt="">
+            </div>
+        </div>
+        <div class="item" tapmode="item_hover">
+            <div class="left">
+                <div class="name">司法亲子鉴定与个人亲子鉴定的区别是什么？</div>
+                <div class="btom">亲子鉴定<span class="time">35分钟前</span></div>
+            </div>
+            <div class="right">
+                <img src="../image/newslist.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+</html>

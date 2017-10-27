@@ -1,0 +1,51 @@
+@import 'common';
+$borders:1px solid #e5e4e4;
+html,body{
+	height:100%;
+	background-color:#f4f4f4;
+}
+%flexStyle{
+	@extend %flex;
+	@extend %flexCenter-x;
+	@extend %flexCenter-y;
+}
+.pinguBox{
+	padding:0.32rem;
+	.item{
+		background-color:#fff;
+		border:$borders;
+		margin-bottom: 0.32rem;
+		border-radius:3px;
+		.pingu-header{
+			height: 1.04rem;
+			background-color: #3bce9d;
+			@include font-dpr(14px);
+			color: #fff;
+			@extend %flexStyle;
+			padding:0 0.266667rem;
+			justify-content:space-between;
+			border-top-left-radius:3px;
+			border-top-right-radius:3px;
+			img{
+				width: 0.64rem;
+				height: 0.64rem;
+			}
+		}
+		.content{
+			padding:0.24rem;
+			.text{
+				line-height: 1.5;
+				color: #333;
+				@include font-dpr(13px);
+			}
+			.time{
+				color: #999;
+				@include font-dpr(11px);
+				margin-top:0.64rem;
+			}
+		}
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}

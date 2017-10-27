@@ -1,0 +1,145 @@
+@import 'common';
+@mixin gridEight($num){
+	@for $i from 1 through $num {
+		&:nth-child(#{$i})
+		{
+			margin-bottom:0.96rem;
+		}
+	}
+}
+@mixin gridSex($num){
+	@for $i from 1 through $num {
+		&:nth-child(#{$i})
+		{
+			border-bottom:1px solid #ebebeb;
+		}
+
+	}
+}
+$base_color:#000;
+.content{
+	//首页banner图
+	.banner{
+		height: 4.0rem;
+		width: 100%;
+		a{
+			display: block;
+			height: 100%;
+			img{
+				display: block;
+				width: 100%;
+				max-width: 100%;
+				height: 100%;
+			}
+		}
+	}
+	//首页8个分类
+	.grid-8{
+		@extend %flex;
+		@extend %flexCenter-x;
+		@extend %flexCenter-y;
+		border-bottom: 1px solid #ebebeb;
+		flex-wrap: wrap;
+		background-color: #fff;
+		padding: 0.533333rem 0;
+		div.item{
+			width: 25%;
+			text-align: center;
+			color: $base_color;
+			@include font-dpr(12px);
+			@include gridEight(4);
+			img{
+				display: block;
+				width:1.04rem;
+				height:1.04rem ;
+				margin:0 auto 0.266667rem auto;
+			}
+		}
+	}
+	//鉴定套餐
+	.jd-package{
+		margin-top: 0.4rem;
+		border-top:1px solid #ebebeb;
+		border-bottom:1px solid #ebebeb;
+		overflow: hidden;
+		div.title{
+			height: 0.506667rem;
+			@extend %flex;
+			@extend %flexCenter-y;
+			@include font-dpr(15px);
+			color: #222;
+			border-left: 4px solid #3bce9d;
+			margin-top:0.32rem;
+			text-indent: 0.24rem;
+		}
+		div.package-box{
+			box-sizing:border-box;
+			@extend %flex;
+			@extend %flexCenter-x;
+			@extend %flexCenter-y;
+			flex-wrap: wrap;
+			div.item{
+				$color1:#222;
+				$color2:#999;
+				$color3:#f77b01;
+				width: 50%;
+				box-sizing:border-box;
+				padding:0.32rem;
+				&:nth-child(odd){
+					padding-right:0.16rem;
+				}
+				&:nth-child(even){
+					padding-left:0.16rem;
+				}
+				img{
+					display: block;
+					width: 100%;
+					max-width: 100%;
+					height: 2.133333rem;
+					border-radius:0.066667rem;
+				}
+				p.name{
+					@include font-dpr(13px);
+					color: $color1;
+					margin:0.24rem 0;
+				}
+				p.money{
+					color: $color2;
+					@include font-dpr(11px);
+					span{
+						color: $color3;
+					}
+				}
+			}
+		}
+	}
+	//首页6个分类
+	.grid-6{
+		margin-top: 0.4rem;
+		@extend %flex;
+		@extend %flexCenter-x;
+		@extend %flexCenter-y;
+		flex-wrap: wrap;
+		border-top:1px solid #ebebeb;
+		border-bottom:1px solid #ebebeb;
+		div.item{
+			width: 33.33333%;
+			text-align: center;
+			box-sizing:border-box;
+			border-right:1px solid #ebebeb;
+			@include gridSex(3);
+			color: #222;
+			@include font-dpr(12px);
+			padding:0.533333rem 0;
+			&:last-child{
+				border-image:none;
+			}
+			img{
+				display: block;
+				height: 0.586667rem;
+				width: 0.586667rem;
+				margin:0 auto 0.133333rem auto;
+			}
+		}
+	}
+}

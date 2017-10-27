@@ -1,0 +1,65 @@
+@import "common";
+html,body{
+    height: 100%;
+    background-color: #f4f4f4;
+}
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.my_ask_list{
+    .item{
+        background-color: #fff;
+        @extend %flexStyle;
+        border-top:1px solid #e5e4e4;
+        border-bottom: 1px solid #e5e4e4;
+        padding: 0.32rem;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        margin-top: 0.32rem;
+        .left{
+
+            img.head_pic{
+                height: 1.32rem;
+                width: 1.32rem;
+                display: block;
+                @include borderR(50%);
+            }
+        }
+        .right{
+            margin-left: 0.32rem;
+            @extend %flexStyle;
+            -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                    justify-content: space-between;
+            -webkit-box-flex: 1;
+                -ms-flex: 1;
+                    flex: 1;
+            .info{
+                .name{
+                    color: #222;
+                    @include font-dpr(14px);
+                }
+                .belong{
+                    color: #999;
+                    @include font-dpr(11px);
+                    margin:0 0 0.3rem 0;
+                }
+                .tag{
+                    color: #8ba0ae;
+                    border:1px solid #8ba0ae;
+                    text-align: center;
+                    @include font-dpr(9px);
+                    padding: 0 0.16rem;
+                    @include borderR(3px);
+                }
+            }
+            .chats{
+                img{
+                    height: 0.64rem;
+                    width: 0.64rem;
+                    display: block;
+                }
+            }
+        }
+    }
+}

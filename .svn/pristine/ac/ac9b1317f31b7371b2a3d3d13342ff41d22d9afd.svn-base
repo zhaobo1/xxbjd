@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+	<header id="headerbox">
+		<div id="header">
+			<div class="item">
+				<span tapmode>机构</span>
+			</div>
+			<div class="item">
+				<span  tapmode>专家</span>
+			</div>
+		</div>
+	</header>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript">
+var frameH,headerH,footerH,str_type;
+
+apiready = function(){
+  //监听事件
+  FastClick.attach(document.body);
+  str_type = api.pageParam.type||'doctor';
+  footerH = api.pageParam.footerH;
+  headerH = $api.offset($api.byId('headerbox')).h;
+  frameH = api.winHeight - headerH - footerH;
+  openlist()
+}
+function openlist(){
+    var defaults = {
+        rect: {
+            x: 0,
+            y: headerH,
+            w: 'auto',
+            h: frameH
+        },
+        bounces: true,
+        bgColor: '#f4f4f4',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    }
+    if(str_type==='doctor')
+    {
+        $('#headerbox .item').eq(1).addClass('current');
+        var option = $.extend({},defaults,{name:'ask_doctor',url:'./ask_doctor.html'});
+    }else if(str_type==='org')
+    {
+        $('#headerbox .item').eq(0).addClass('current');
+        var option = $.extend({},defaults,{name:'ask_org',url:'./ask_org.html'});
+    }
+    setTimeout(function(){ api.openFrame(option);},300)
+}
+
+$(document).on('click','.item:not(".current")',function(){
+    var i = $(this).index('.item');
+    if(i==0)
+    {
+        //打开机构列表，关闭法医列表
+        $('#headerbox .item').eq(0).addClass('current');
+        $('#headerbox .item').eq(1).removeClass('current');
+        api.setFrameAttr({
+            name: 'ask_doctor',
+            hidden:true
+        });
+        api.openFrame({
+            name: 'ask_org',
+            url: './ask_org.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: frameH
+            },
+            bounces: true,
+            bgColor: '#f4f4f4',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
+
+    }else {
+        //打开法医列表，关闭机构列表
+        $('#headerbox .item').eq(0).removeClass('current');
+        $('#headerbox .item').eq(1).addClass('current');
+        api.setFrameAttr({
+            name: 'ask_org',
+            hidden:true
+        });
+        api.openFrame({
+            name: 'ask_doctor',
+            url: './ask_doctor.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: frameH
+            },
+            bounces: true,
+            bgColor: '#f4f4f4',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
+    }
+})
+</script>
+</html>

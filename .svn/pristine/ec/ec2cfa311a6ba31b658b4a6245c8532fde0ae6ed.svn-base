@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+	this is ask_list.html
+	<!-- <div class="content">
+		<div class="listbox">
+			<ul class="list doctor_list">
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+</html>

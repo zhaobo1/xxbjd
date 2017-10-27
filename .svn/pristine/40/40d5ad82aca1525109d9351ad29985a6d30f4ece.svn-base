@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+  <!-- 当前数据量不多；刷新加载放在迭代版本中 -->
+  <div class="content">
+    <div class="listbox">
+      <ul class="list doctor_list" id="doctor_list_box">
+
+      </ul>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/template.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/interface.js"></script>
+<script type="text/javascript">
+var frameH,footerH,headerH,num,countAll,pageAll;
+//给法医列表添加事件监听，点击进入法医主页；携带法医ID；
+;(function(){
+	var option_doctor;
+	var defaults = {
+		progress:{
+			type:"page",
+			title:"提示2",
+			text:"加载中..."
+		},
+	}
+	option_doctor = $.extend({},defaults,{
+		name: 'doctor_home',
+		url: './doctor_home.html',
+	});
+	document.getElementsByClassName('doctor_list')[0].addEventListener('click',function(e){
+		var eleName = (e.target.nodeName).toLowerCase();
+		var pnode;
+		var id;
+		if(eleName!=='li')
+		{
+			id = $(e.target).parents('li').attr('data-id');
+		}else {
+			pnode = e.target;
+			id = pnode.getAttribute('data-id');
+		}
+		var idobj = {
+			pageParam: {
+		        id: id
+		    }
+		};
+		var option = $.extend({},option_doctor,idobj);
+		api.openWin(option);
+	},true)
+})();
+
+//加载数据
+function loadData(){
+	api.showProgress({
+        title: '加载中...',
+        modal: false
+    });
+	xbinterface.doctor_list('mpi/getDoctor?page='+num+'&size='+xbinterface.config.pageSize+'',function(data){
+  		var htmls = createItem(data.data);
+		pageAll = xbinterface.pageAll(data.countAll);
+		$('#doctor_list_box').append(htmls);
+		num++;
+	    api.parseTapmode();
+    });
+	setTimeout(function(){api.hideProgress();},500)
+}
+function createItem(data){
+	var html = '';
+	for(var i = 0 ;i<data.length;i++)
+	{
+		html+='<li class="v" tapmode="list_gray" data-id="'+data[i].DOCTOR_ID+'">'+
+			'<div class="item">'+
+				'<img src="'+data.picurl+data[i].PIC+'" class="bigpic">'+
+				'<img src="../image/v.png" class="vpng">'+
+			'</div>'+
+			'<div class="item">'+
+				'<div class="name">'+data[i].NAME+'</div>'+
+				'<div class="belong">四川省第一人民医院司法鉴定所</div>'+
+				'<div>'+
+					'<img class="staricon" src="../image/start1.png"/>'+
+					'<img class="staricon" src="../image/start1.png"/>'+
+					'<img class="staricon" src="../image/start1.png"/>'+
+					'<img class="staricon" src="../image/start1.png"/>'+
+					'<img class="staricon" src="../image/start1.png"/>'+
+					'<span class="score">4.5分</span>'+
+				'</div>'+
+				'<div class="tagbox">'+
+					'<span class="tag">伤残鉴定</span>'+
+					'<span class="tag">电子数据鉴定</span>'+
+					'<span class="tag">笔记鉴定</span>'+
+				'</div>'+
+			'</div>'+
+		'</li>';
+	}
+	return html;
+}
+apiready = function(){
+	num=1;
+	loadData();
+	api.addEventListener({name: 'scrolltobottom',extra:{threshold:50}}, function(ret, err){
+		if(num==pageAll){
+			api.toast({
+			    msg: '没有数据了',
+			    duration: 2000,
+			    location: 'middle'
+			});
+		}else {
+		    loadData();
+		}
+    });
+	api.setRefreshHeaderInfo({
+	   visible: true,
+	   bgColor: 'rgba(0,0,0,0)',
+	   textColor: '#666',
+	   textDown: '下拉刷新',
+	   textUp: '释放刷新'
+   }, function(ret, err){
+	   //alert("AAA");
+	  api.refreshHeaderLoadDone();
+   });
+  //监听事件
+  // api.addEventListener({
+  //     name: 'myEvent'
+  // }, function(ret, err){
+  //     if( ret ){
+  //         // alert( JSON.stringify( ret ) );
+  //     }else{
+  //         // alert( JSON.stringify( err ) );
+  //     }
+  // });
+	 }
+</script>
+</html>

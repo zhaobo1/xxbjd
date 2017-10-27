@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/message.css" />
+	<title>Document</title>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript">
+var UIListView,rongCloud2;
+
+function initmessageList(){
+	//获取所有的会话列表
+	rongCloud2.getConversationList(function(ret, err) {
+		//alert(JSON.stringify(ret.result));
+		var userid = Xiaobang.getuser().userId;
+		//之后再去实例化列表；
+		var data = [];
+		for(var i = 0 ; i<ret.result.length;i++)
+		{
+			var messageone = ret.result[i];
+			var time =Xiaobang.chatTime(messageone.receivedTime);
+			var obj = {};
+			obj.uid=messageone.targetId;
+			if((messageone.latestMessage.extra).lastIndexOf('@')!=-1)
+			{
+				obj.imgPath=(messageone.latestMessage.extra).split('@')[0];
+				obj.title = (messageone.latestMessage.extra).split('@')[1];
+			}else {
+				obj.imgPath='widget://image/tx.jpg';
+				obj.title = '匿名';
+			}
+			obj.subTitle = messageone.latestMessage.text;
+			obj.remark = time;
+			if(messageone.unreadMessageCount!=0)
+			{
+				obj.icon = 'widget://image/dian.png';
+			}
+			data.push(obj);
+
+		}
+		initList(data);
+	});
+}
+
+function inital(name){
+	//check_network
+	if(Xiaobang.getlinktype()!=='none')
+	{
+		//实例化融云消息列表
+		initmessageList();
+	}
+}
+function initList(data){
+	var frameH = api.winHeight;
+	UIListView.open({
+		rect: {
+			x: 0,
+			y: 0,
+			w: api.winWidth,
+			h: frameH
+		},
+		data: data,
+		rightBtns: [{
+			bgColor: '#ff0000',
+			activeBgColor: '',
+			width: 70,
+			title: '删除',
+			titleSize: 14,
+			titleColor: '#fff',
+			icon: '',
+			iconWidth: 20
+		}],
+		styles: {
+			borderColor: '#e5e4e4',
+			item: {
+				bgColor: '#f4f4f4',
+				activeBgColor: '#ffffff',
+				height: 75,
+				imgWidth: 50,
+				imgHeight: 50,
+				imgCorner: 50,
+				placeholderImg: '',
+				titleSize: 14.0,
+				titleColor: '#000',
+				subTitleSize: 12.0,
+				subTitleColor: '#555',
+				remarkColor: '#afafaf',
+				remarkSize: 12,
+				remarkIconWidth: 16
+			}
+		},
+		fixedOn: api.frameName
+	}, function(ret, err) {
+		//点击整块跳转,包括头像，备注；
+		if(ret.eventType=="clickContent"||ret.eventType=="clickImg"||ret.eventType=="clickRemark")
+		{
+			UIListView.getDataByIndex({
+				index:ret.index
+			},function(ret,err){
+				//alert(JSON.stringify(ret));
+				$api.setStorage('titlename',ret.data.title);
+				var duifangid = ret.data.uid;
+				api.openWin({
+					name: 'messageIframe',
+					url: './messageIframe.html',
+					pageParam: {
+						duifangid: duifangid
+					}
+				});
+			})
+		}
+		//点击左滑出来的删除按钮
+		if(ret.eventType=="clickRightBtn"){
+			//删除会话；
+			var index = ret.index;
+			UIListView.getDataByIndex({
+				index:index
+			},function(ret,err){
+				rongCloud2.removeConversation({
+				    conversationType: 'PRIVATE',
+				    targetId:ret.data.uid
+				}, function(ret, err) {
+				    api.toast({ msg: ret.status });
+					UIListView.deleteItem({
+					    index: index
+					}, function(ret, err) {
+					    if (ret) {
+					        alert(JSON.stringify(ret));
+					    } else {
+					        alert(JSON.stringify(err));
+					    }
+					});
+				})
+			});
+		}
+	});
+}
+apiready = function() {
+	 UIListView = api.require('UIListView');
+	 rongCloud2 = api.require("rongCloud2");
+	//check_login
+	Xiaobang.islogin(inital,{isBackwardToLogin:false,showbutton:true});
+	api.setRefreshHeaderInfo({
+	    visible: true,
+	    loadingImg: 'widget://image/refresh.png',
+	    bgColor: '#ccc',
+	    textColor: '#fff',
+	    textDown: '下拉刷新...',
+	    textUp: '松开刷新...',
+	    showTime: true
+	}, function(ret, err){
+		api.execScript({
+			name: 'root',
+			script: 'getUnreadCount();'
+		});
+		setTimeout(function(){api.refreshHeaderLoadDone();},500)
+	});
+	//收到消息的监听;
+	api.addEventListener({
+	    name: 'getmessage'
+	}, function(ret, err){
+	    if( ret ){
+			 api.execScript({
+			     name: 'root',
+			     script: 'getUnreadCount();'
+			 });
+
+	    }else{
+	         alert( JSON.stringify( err ) );
+	    }
+	});
+	//调用index中的changeTitle方法
+	api.execScript({
+		name: 'root',
+		script: 'changeTitle("消息");'
+	});
+	//登录成功事件监听
+	api.addEventListener({
+		name: 'loginsuccess'
+	}, function(ret, err){
+		if( ret ){
+			var user = Xiaobang.getuser();
+			rongCloud2.init(function(ret, err) {
+			    if (ret.status == 'error')
+			        api.toast({ msg: err.code });
+			});
+			rongCloud2.connect({token: user.token},function(ret, err) {
+				if (ret.status == 'success'){
+					//返回登录融云用户的ID；
+					api.toast({ msg: ret.result.userId });
+				}
+			});
+		}else{
+			 alert( JSON.stringify( err ) );
+		}
+	});
+}
+
+</script>
+</html>

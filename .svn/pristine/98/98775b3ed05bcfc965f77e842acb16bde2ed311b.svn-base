@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/org_home.css" />
+	<title>Document</title>
+	<style type="text/css">
+		.describe img{
+			width: 100%!important;
+			max-width: 100%!important;
+			display: block!important;
+			margin: 0 auto!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="topinfo">
+		<img src="" id="logo" class="logo" alt="">
+		<div class="name" id="name"></div>
+		<div class="num" id="xkz"></div>
+		<div class="rz">
+			<div class="item">
+				<img src="../image/beian.png">
+				<span>正规机构</span>
+			</div>
+			<div class="item">
+				<img src="../image/beian.png">
+				<span>司法局备案</span>
+			</div>
+			<div class="item">
+				<img src="../image/xaobang.png">
+				<span>小帮认证</span>
+			</div>
+		</div>
+	</div>
+	<div class="midinfo">
+		<div class="box">
+			<div class="item">
+				<img src="../image/zan.png" class="img1"/>
+				<span class="score" id="score"></span>
+			</div>
+			<div class="item">
+				<img src="../image/map.png" alt="" class="img1"/>
+				<span class="address" id="address"></span>
+			</div>
+		</div>
+	</div>
+	<div class="btminfo">
+		<div class="imgsliderbox">
+			<ul>
+				<li class="photoitem"><img src="../image/package.png" alt=""></li>
+				<li class="photoitem"><img src="../image/package.png" alt=""></li>
+				<li class="photoitem"><img src="../image/package.png" alt=""></li>
+				<li class="photoitem"><img src="../image/package.png" alt=""></li>
+			</ul>
+		</div>
+		<div class="describe">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/interface.js"></script>
+<script type="text/javascript">
+var imageBrowser;
+$(document).on('click','.photoitem',function(){
+	var index = $(this).index();
+	imageBrowser.openImages({
+		activeIndex:index,
+	    imageUrls: [
+	        'widget://image/package.png',
+	        'widget://image/package.png',
+					'widget://image/package.png',
+					'widget://image/package.png'
+	    ]
+	});
+})
+
+function loadData(id){
+	api.showProgress({
+		title: '加载中...',
+        modal: false
+	});
+	xbinterface.doctor_org_info('mpi/findCompanyById',id,function(data){
+		$('#logo').attr('src',data.picurl+data.LOGO);
+		$('#name').html(data.NAME);
+		$('#xkz').html('许可证：'+data.XUKEZ);
+		var scorehtml = Xiaobang.scoreStar(parseInt(data.SCORE));
+		$('#score').html(data.SCORE+'分');
+		$('#score').before(scorehtml);
+		$('#address').html(data.ADDRESS);
+		$('.describe').html(data.CONTENT)
+	});
+	setTimeout(function(){api.hideProgress();},500)
+}
+apiready=function(){
+	var id = api.pageParam.id;
+	loadData(id);
+	api.setRefreshHeaderInfo({
+	   visible: true,
+	   bgColor: 'rgba(0,0,0,0)',
+	   textColor: '#666',
+	   textDown: '下拉刷新',
+	   textUp: '释放刷新'
+	}, function(ret, err){
+	   loadData(id);
+	   setTimeout(function(){api.refreshHeaderLoadDone();},500)
+	});
+	//导入图片预览；
+	imageBrowser = api.require('imageBrowser');
+};
+var Share;
+function openshare(option){
+	var defaults = {
+		title:'分享至',
+		arr:["微信好友","朋友圈","手机QQ","QQ空间","新浪微博","复制链接"]
+	};
+	var options = $.extend({},defaults,option);
+	if(typeof Share === 'object' && Share!=null)
+	{
+		//已经实例化分享对象；
+	}else {
+		Share = new ShareModule(options);
+	}
+	if(!$('#sharebox').length)
+	{
+		Share.open();
+	}
+}
+</script>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;background-color:#fff">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/pingu.css">
+    <title>Document</title>
+</head>
+<body style="height:100%;background-color:#fff">
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png"></a>
+		<span>框架测试</span>
+		<i></i>
+    </header>
+    <div class="jdpu_form">
+        <form action="">
+            <div class="itemgroup">
+                <div class="item item-style1" id="select_level">
+                    <span class="title">伤残等级评定</span>
+                    <span id="level_text">人体损伤程度等级评定</span>
+                    <img src="../image/rect.png" alt="">
+                </div>
+                <div class="item item-style2">
+                    <span class="title">评定所需材料</span>
+                    <span class="tips">病历证明、手术记录、出院小结、影像小结（附：受伤照片）</span>
+                    <div id="uploadimg">请选择需要上传的图片</div>
+                </div>
+                <div class="item item-style1">
+                    <span class="title">联系人</span>
+                    <input type="text" name="name" placeholder="姓名（可匿名）">
+                </div>
+                <div class="item item-style1">
+                    <span class="title">手机号</span>
+                    <span class="sjh">188****8888</span>
+                </div>
+                <div class="item item-style2">
+                    <span class="title">需求描述</span>
+                    <textarea name="name" rows="8" cols="10" placeholder="请详细描述你的需求，以便专家更加准确的评定"></textarea>
+                </div>
+                <div class="item item-style1">
+                    <span class="title">咨询费用</span>
+                    <span class="money">￥50.00</span>
+                </div>
+                <div class="warn">敬告：评估报告仅作个人参考，不能用作法律用途</div>
+            </div>
+            <div class="btngroup" id="doctor_btn">
+                <div class="item" tapmode id="online">
+                    <img src="../image/zixun.png" alt="" >咨询客服</div>
+                <div class="item" tapmode>
+                    <span class="gmai">提交支付</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+    var UIselector;
+    //实例化下拉选择
+    function initselect(){
+        UIselector.open({
+            datas:[
+                {name:"人体损伤程度等级评定"},
+                {name:"工伤等级评定"},
+                {name:"道路交通事故等级评定"},
+                {name:"工伤等级评定"}
+            ],
+            layout:{
+                row: 4,                            //（可选项）数字类型；每屏显示的数据行数，超出的数据可以滑动查看，只能是奇数；默认：5
+                col: 1,                            //（可选项）数字类型；数据源的数据级数，最多3级；默认：3
+                height: 40,                        //（可选项）数字类型；每行选项的高度；默认：30
+                size: 16,                          //（可选项）数字类型；普通选项的字体大小；默认：12
+                sizeActive: 18,                    //（可选项）数字类型；当前选项的字体大小；默认：同 size
+                rowSpacing: 1,                     //（可选项）数字类型；行与行之间的距离；默认：5
+                colSpacing: 0,                    //（可选项）数字类型；列与列之间的距离；默认：10
+                maskBg: 'rgba(0,0,0,0.2)',         //（可选项）字符串类型；遮罩层背景，点击该区域隐藏选择器，支持 rgb，rgba，#，img；默认：rgba(0,0,0,0.2)
+                bg: '#f0f0f0',                        //（可选项）字符串类型；选择器有效区域背景，支持 rgb，rgba，#，img；默认：#fff
+                color: '#555',                     //（可选项）字符串类型；选项的文字颜色，支持 rgb，rgba，#；默认：#848484
+                colorSelected: '#000'              //（可选项）字符串类型；已选项的文字颜色，支持 rgb，rgba，#；默认：同 colorActive
+            },
+            cancel:{
+               text: '取消',                      //（可选项）字符串类型；取消按钮的显示文字；默认：未设置时只显示背景
+               size: 12,                          //（可选项）数字类型；取消按钮的显示文字大小；默认：12
+               w: 90,                             //（可选项）数字类型；取消按钮的宽；默认：90
+               h: 35,                             //（可选项）数字类型；取消按钮的高；默认：35
+               bg: '#ccc',                        //（可选项）字符串类型；取消按钮的背景，支持 rgb，rgba，#，img；默认：'#fff'
+               bgActive: '#aaa',                  //（可选项）字符串类型；取消按钮的背景高亮，支持 rgb，rgba，#，img；默认：同 bg
+               color: '#000',                     //（可选项）字符串类型；取消按钮的文字颜色，支持 rgb，rgba，#；默认：'#848484'
+               colorActive: '#fff'                //（可选项）字符串类型；取消按钮的文字颜色高亮，支持 rgb，rgba，#；默认：同 color
+            },
+            ok:{
+              text: '确定',                      //（可选项）字符串类型；确定按钮的显示文字；默认：未设置时只显示背景
+              size: 12,                          //（可选项）数字类型；确定按钮的显示文字大小；默认：12
+              w: 90,                             //（可选项）数字类型；确定按钮的宽；默认：90
+              h: 35,                             //（可选项）数字类型；确定按钮的高；默认：35
+              bg: '#3bce9d',                        //（可选项）字符串类型；确定按钮的背景，支持 rgb，rgba，#，img；默认：'#fff'
+              bgActive: '#33ae85',                  //（可选项）字符串类型；确定按钮的背景高亮，支持 rgb，rgba，#，img；默认：同 bg
+              color: '#fff',                     //（可选项）字符串类型；确定按钮的文字颜色，支持 rgb，rgba，#；默认：'#848484'
+              colorActive: '#fff'                //（可选项）字符串类型；确定按钮的文字颜色高亮，支持 rgb，rgba，#；默认：同 color
+          },
+          title:{
+              text:'',
+              bg:'#fff'
+          }
+      }, function(ret, err) {
+        if (ret) {
+                console.log(JSON.stringify(ret));
+                if(ret.eventType==='ok')
+                {
+                    $('#level_text').html((ret.selectedInfo[0]).name);
+                }
+            } else {
+                console.log(JSON.stringify(err));
+            }
+        })
+    }
+    //图片上传函数
+    function uploadimgFn() {
+        //首先调用系统actionsheet，
+        api.actionSheet({
+            title: '上传图片',
+            cancelTitle: '取消',
+            buttons: ['拍照','手机相册']
+        }, function(ret, err){
+            if( ret ){
+                // alert( JSON.stringify( ret ) );
+                 var defaults = {
+                     sourceType: 'camera',
+                     encodingType: 'jpg',
+                     mediaValue: 'pic',
+                     destinationType: 'base64',
+                     allowEdit: true,
+                     quality: 100,
+                     saveToPhotoAlbum: false
+                 }
+                 if(ret.buttonIndex==1)
+                 {
+                     //拍照
+                     var option = $.extend({},defaults,{ sourceType: 'camera'})
+                     api.getPicture(option, function(ret, err){
+                         if(ret){
+                              alert(JSON.stringify(ret));
+                         }else{
+                              alert(JSON.stringify(err));
+                         }
+                     });
+
+                 }else if(ret.buttonIndex==2){
+                     //手机相册
+                     var option = $.extend({},defaults,{ sourceType: 'album'})
+                     api.getPicture(option, function(ret, err){
+                         if(ret){
+                             // alert(JSON.stringify(ret));
+                              var src = ret.base64Data;
+                              var IMGCLIP = api.require("FNImageClip");
+                              IMGCLIP.open({
+                                  rect: {
+                                      x: 0,
+                                      y: 100
+                                  },
+                                  srcPath:ret.data,
+                                  style: {
+                                        mask: 'rgba(0,0,0,0.4)',
+                                        clip: {
+                                            w: 200,
+                                            h: 200,
+                                            x: 80,
+                                            y: 200,
+                                            borderColor: '#0f0',
+                                            borderWidth: 1,
+                                            appearance: 'rectangle'
+                                        }
+                                    },
+                                  fixedOn: api.frameName
+                              }, function(ret, err){
+                                  if( ret ){
+                                      alert( JSON.stringify( ret ) );
+                                  }else{
+                                      alert( JSON.stringify( err ) );
+                                  }
+                              });
+
+                         }else{
+                              alert(JSON.stringify(err));
+                         }
+                     });
+                 }
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+    }
+
+    function inital(name){
+        UIselector = api.require("UIActionSelector");
+        //添加点击触发选择框；
+        document.getElementById('select_level').addEventListener('click',function(){
+            initselect()
+        },true);
+        //添加图片上传函数；
+        document.getElementById('uploadimg').addEventListener('click',function(){
+            uploadimgFn();
+        },true);
+    }
+    apiready = function() {
+    	FastClick.attach(document.body);
+    	//check_login
+    	Xiaobang.islogin(inital,{isBackwardToLogin:false,showbutton:true})
+    }
+</script>
+</html>

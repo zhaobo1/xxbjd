@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/org_home.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header class="org_home_header" id="org_header">
+		<img class="back" src="../image/back.png">
+		<span>机构主页</span>
+		<img class="share" src="../image/fenxiang.png" alt="">
+	</header>
+	<div class="btngroup" id="org_btn">
+		<div class="item" tapmode id="online">
+			<img src="../image/zixun.png" alt="" >在线咨询</div>
+		<div class="item" tapmode>
+			<img src="../image/tel.png" alt="">电话咨询</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript">
+apiready=function(){
+	FastClick.attach(document.body);
+	var header = $api.byId('org_header');
+	var footer = $api.byId('org_btn');
+	var frameH = api.winHeight - $api.offset(header).h - $api.offset(footer).h;
+	api.openFrame({
+	    name: 'org_info',
+	    url: './org_home_info.html',
+	    rect: {
+	        x: 0,
+	        y: $api.offset(header).h,
+	        w: 'auto',
+	        h: frameH
+	    },
+	    pageParam: {
+	        id: '1'
+	    },
+	    bounces: true
+	});
+}
+</script>
+</html>

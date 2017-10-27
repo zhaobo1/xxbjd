@@ -1,0 +1,50 @@
+@import "common";
+html,body{
+    height: 100%;
+    background-color: #f4f4f4;
+}
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.newslist{
+    width: 100%;
+    .item{
+        width: 100%;
+        @extend %flexStyle;
+        align-items: stretch;
+        justify-content: space-between;
+        padding: 0.08rem;
+        background-color: #fff;
+        margin-bottom: 0.16rem;
+        border-bottom: 1px solid #e5e4e4;
+        box-sizing: border-box;
+        .left{
+            position: relative;
+            flex:1.5;
+            padding: 0.32rem;
+             box-sizing: border-box;
+            .name{
+                color: #000;
+                @include font-dpr(14px);
+            }
+            .btom{
+                color: #b6b6b6;
+                @include font-dpr(10px);
+                position: absolute;
+                bottom: 0.32rem;
+                .time{
+                    margin-left: 0.4rem;
+                }
+            }
+        }
+        .right{
+            flex:1;
+            img{
+                width: 100%;
+                height: 2.8rem;
+                display: block;
+                max-width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/news.css">
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png" alt=""></a>
+        <span>鉴定资讯</span>
+        <i></i>
+    </header>
+    <ul class="newslist" id="new_list_box">
+
+    </ul>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/interface.js"></script>
+<script>
+    var num,pageAll;
+    apiready = function() {
+      num=1;
+      loadData();
+      api.addEventListener({name: 'scrolltobottom',extra:{threshold:50}}, function(ret, err){
+    		if(num==pageAll){
+    			api.toast({
+    			    msg: '没有数据了',
+    			    duration: 2000,
+    			    location: 'middle'
+    			});
+    		}else {
+    		    loadData();
+    		}
+        });
+    }
+  document.getElementById('new_list_box').addEventListener('click',function(e){
+    var ele = e.target;
+    var id = $(ele).parents('li').attr('data-id');
+    api.openWin({
+        name: 'news_info',
+        url: './news_info.html',
+        pageParam: {
+            id: id
+        }
+    });
+  })
+    function createItem(data){
+      var html = '';
+      for (var i = 0; i < data.length; i++) {
+          var time = Xiaobang.initTime(data[i].CREATE_DATE);
+        html+='<li class="item" tapmode="item_hover" data-id="'+data[i].NEWS_ID+'">'+
+            '<div class="left">'+
+                '<div class="name">'+data[i].TITLE+'</div>'+
+                '<div class="btom">亲子鉴定<span class="time">'+time+'</span></div>'+
+            '</div>'+
+            '<div class="right">'+
+                '<img src="'+data.picurl+data[i].LOGO+'" alt="">'+
+          '</div>'+
+        '</li>';
+      }
+      return html;
+    }
+    function loadData(){
+      api.showProgress({
+            title: '加载中...',
+            modal: false
+      });
+      xbinterface.newslist('mpi/news?page='+num+'&size='+xbinterface.config.pageSize+'',function(data){
+        var htmls = createItem(data.data);
+  			pageAll = xbinterface.pageAll(data.countAll);
+  			$('#new_list_box').append(htmls);
+  			num++;
+  	    api.parseTapmode();
+      });
+      setTimeout(function(){api.hideProgress();},500)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

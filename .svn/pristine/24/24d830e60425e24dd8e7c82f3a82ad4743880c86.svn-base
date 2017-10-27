@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jdbk.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png"></a>
+		<span>鉴定百科</span>
+		<i></i>
+    </header>
+    <div class="main_box">
+        <div class="left">
+            <div class="item active" tapmode>法医物证鉴定</div>
+            <div class="item" tapmode>法医临床鉴定</div>
+            <div class="item" tapmode>法医病理鉴定</div>
+            <div class="item" tapmode>精神病鉴定</div>
+        </div>
+        <div class="right">
+            <div class="item" tapmode>
+                <span>上户口亲子鉴定</span><img src="../image/myicon5.png" alt="">
+            </div>
+            <div class="item" tapmode>
+                <span>上户口亲子鉴定</span><img src="../image/myicon5.png" alt="">
+            </div>
+            <div class="item" tapmode>
+                <span>上户口亲子鉴定</span><img src="../image/myicon5.png" alt="">
+            </div>
+            <div class="item" tapmode>
+                <span>上户口亲子鉴定</span><img src="../image/myicon5.png" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+
+$(document).on('click','.right>.item',function(){
+    api.openWin({
+        name: 'jdbk_info',
+        url: './jdbk_info.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+})
+apiready=function(){
+
+}
+
+</script>
+</html>

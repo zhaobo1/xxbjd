@@ -1,0 +1,234 @@
+var Xiaobang = {
+  config:{
+    ip:'http://139.224.220.248:8048/xiaobang/',
+    isBackwardToLogin:false
+  },
+  islogin:function(callback,option){
+    var defaults = {
+        isBackwardToLogin:Xiaobang.config.isBackwardToLogin,
+        showbutton:false
+    };
+    var options = $.extend({},defaults,option);
+    var user = Xiaobang.getuser();
+    var isUnLogin = user == null || (typeof user === 'string');
+    if(isUnLogin)
+    {
+      if(options.isBackwardToLogin)
+      {
+        //跳转到登录界面
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }else {
+        //如果没有登录，而且不强制跳转登录页面;
+        if(options.showbutton)
+        {
+            //显示登录按钮；
+            Xiaobang.nologin_createHtml();
+        }
+        return false;
+      }
+    }else{
+      //如果登录则执行登录后的逻辑；
+      if(typeof callback === 'function')
+      {
+          //已经登录
+          callback(Xiaobang.getuser().name);
+      }
+    }
+  },
+  loginout:function(){
+    $api.rmStorage('user');
+  },
+  getuser:function(){
+    return $api.getStorage('user');
+  },
+  saveuser:function(user){
+    $api.setStorage('user', user);
+},
+//没有登录
+nologin_createHtml:function(){
+    var html = "<div class='nologin'>"+
+                "<span>您还没有登录小帮鉴定，请先登录~</span>"+
+                "<button id='gotologin' tapmode='gotologin_btn_green'>登录小帮鉴定</button>"+
+                "</div>";
+                $('body').html(html);
+
+},
+//没网络
+nointer_createHtml:function(){
+    var html =  "<div class='nointer'>"+
+                    "<img src='../image/wifi.png'>"+
+                    "<span>网络不给力</span>"+
+                    "<span>请检查您的网络设置</span></div>";
+                    $('body').append(html);
+},
+getlinktype:function(){
+    //如果是none表示无网络连接。
+    if(api.connectionType==='none')
+        {
+            Xiaobang.createHtml();
+        }
+        return api.connectionType;
+},
+scoreStar:function(score){
+    //评分星星数HTML;
+  var score = parseInt(score);
+  var arrs = [0,0,0,0,0];
+  for (var i = 0; i < score; i++) {
+    arrs.unshift(1);
+  }
+  arrs = arrs.splice(0,5);
+  var html='';
+  for(var j = 0; j<arrs.length ;j++)
+  {
+    if(arrs[j]==1)
+    {
+      html+='<img class="staricon" src="../image/start1.png"/>';
+    }else {
+      html+='<img class="staricon" src="../image/start2.png"/>';
+    }
+  }
+  return html;
+},
+initTime:function(str)
+{
+    //格式化时间；
+    var time = new Date(str);
+    var year = time.getFullYear();
+    var mouth = time.getMonth();
+    mouth+=1;
+    if(mouth<10)
+    {
+        mouth = '0'+mouth;
+    }
+    var day = time.getDate();
+    var times = year+'-'+mouth+'-'+day;
+    return times;
+},
+chatTime:function(time)
+{
+    var nowTime = (new Date()).getTime();//当前时间戳；
+    var fenz = parseInt((nowTime - time)/60000);//转化成分钟；
+    var house = parseInt(fenz/60);//转化成小时
+    var day = parseInt(house/24);//转化成天
+    var str='';
+    if(house>=1&&house<24)
+    {
+        str = house+'小时'+fenz%60+'分钟前';
+    }else if(house>=24){
+        str = day+'天前';
+    }else if(fenz==0){
+        str = '刚刚';
+    }else {
+        if(fenz==0)
+        {
+            str = '刚刚';
+        }else {
+            str = fenz+'分钟前';
+        }
+    }
+    return str;
+},
+create_Send:function(data){
+    var extra = data.content.extra;
+    if(extra.lastIndexOf('@')!=-1)
+    {
+        var pic = extra.split('@')[0];
+    }else {
+        var pic ='../image/tx.jpg';
+    }
+    if(data.content.text)
+    {
+        cont = data.content.text
+    }else if(data.content.imageUrl){
+        if(data.content.isprepare)
+        {
+            cont ='<img style="max-width:100%;display:block" src="'+data.content.imageUrl+'" />'+
+            '<div class="imgsendmask"><span></span></div>';
+        }else {
+            cont ='<img style="max-width:100%;display:block" src="'+data.content.imageUrl+'" />';
+        }
+    }
+    var html = '<div class="send">'+
+                '<img src="'+pic+'" class="head" alt="">'+
+                '<div class="textbox">'+cont+'</div>'+
+            '</div>';
+            return html;
+},
+create_Receive:function(data){
+    var extra = data.content.extra;
+    if(extra.lastIndexOf('@')!=-1)
+    {
+        var pic = extra.split('@')[0];
+    }else {
+        var pic ='../image/tx.jpg';
+    }
+    var cont = '';
+    if(data.content.text)
+    {
+        cont = data.content.text
+    }else if(data.content.imageUrl){
+        cont ='<img style="max-width:100%;display:block" src="'+data.content.imageUrl+'" />';
+    }
+    var html = '<div class="receive">'+
+                    '<img src="'+pic+'" class="head" alt="">'+
+                    '<div class="textbox">'+cont+'</div>'+
+                '</div>';
+                return html;
+    },
+getToken:function(id,name,headerPic,callback)
+    {
+        console.log(id);
+        console.log(name);
+        console.log(headerPic);
+        $.ajax({
+            url: 'http://api.cn.ronghub.com/user/getToken.json',
+            type:'post',
+            data:{
+                userId: id,
+                name: name,
+                portraitUri:headerPic
+            },
+            beforeSend: function(xhr) {
+                    var Nonce = (Math.random())*1000000;
+                    var Timestamp = (new Date()).getTime();
+                    var Signature = $.sha1('guV3yUtVST6iGU'+Nonce+Timestamp);
+                   xhr.setRequestHeader("App-Key", "pvxdm17jpc6br");
+                   xhr.setRequestHeader("Nonce", Nonce);
+                   xhr.setRequestHeader("Timestamp", Timestamp);
+                   xhr.setRequestHeader("Signature", Signature);
+               },
+            success:function(data){
+                alert( JSON.stringify( data ) );
+                var user = {
+                    token:data.token,
+                    userId:data.userId,
+                    name:name
+                }
+                $api.setStorage('user', user);
+                callback();
+            },
+            error:function(err)
+            {
+                alert(JSON.stringify(err))
+            }
+        })
+    }
+}
+
+
+//统一处理跳转登陆逻辑
+$(document).on('click','#gotologin',function(){
+    api.openWin({
+        name: 'login',
+        url: './login.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+})

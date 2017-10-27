@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/my.css" />
+	<title>Document</title>
+</head>
+<body>
+	<div class="topbox">
+		<img src="../image/photo.png">
+		<span class="username">
+			手机：188****6731
+		</span>
+	</div>
+	<div class="functions">
+		<div class="item" id="zixun" tapmode>
+			<img src="../image/myicon1.png" alt="" class="lefticon">
+			<span class="text">我的咨询</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+		<div class="item" id="pingu" tapmode>
+			<img src="../image/myicon2.png" alt="" class="lefticon">
+			<span class="text">我的评估</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+		<div class="item" id="proto" tapmode>
+			<img src="../image/myicon3.png" alt="" class="lefticon">
+			<span class="text">用户协议</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+		<div class="item" id="setting" tapmode>
+			<img src="../image/myicon4.png" alt="" class="lefticon">
+			<span class="text">设置</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+	</div>
+	<div class="functions">
+		<div class="item" id="about" tapmode>
+			<img src="../image/myicon6.png" alt="" class="lefticon">
+			<span class="text">关于小帮鉴定</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+		<div class="item">
+			<img src="../image/myicon7.png" alt="" class="lefticon">
+			<span class="text">客服电话</span>
+			<img src="../image/myicon5.png" alt="" class="righticon">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/base.js"></script>
+<script type="text/javascript">
+function inital(name){
+	;(function(){
+		[].forEach.call(arguments,function(m,i){
+			document.getElementById(m).addEventListener('click',function(){
+				api.openWin({
+					name: m,
+					url: './'+m+'.html',
+					pageParam: {
+						name: 'test'
+					}
+				});
+
+			})
+		})
+	})('pingu','zixun','setting','about','proto')
+}
+apiready=function(){
+	FastClick.attach(document.body);
+	//check_login;
+	Xiaobang.islogin(inital,{isBackwardToLogin:false,showbutton:true})
+}
+</script>
+</html>

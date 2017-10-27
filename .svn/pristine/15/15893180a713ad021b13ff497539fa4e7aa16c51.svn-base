@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/pingu.css" />
+	<title>Document</title>
+</head>
+<body>
+	<header class="newWindowbackHeader">
+		<a class="back"><img src="../image/back.png"></a>
+		<span>我的评估</span>
+		<i></i>
+	</header>
+	<div class="pinguBox">
+		<div class="item">
+			<div class="pingu-header">
+				小帮鉴定评估报告
+				<img src="../image/pingguzixun.png">
+			</div>
+			<div class="content">
+				<div class="text">
+					伤者食指、无名指末节指骨骨折，目前受伤时间较短，已恢复
+后无明显后遗症为依据评残，依据现有资料，参照《劳动能力
+鉴定 职工工伤与职业病致残等级》标准（GB/T 16180-2014）
+的相关规定，可以评定为十级伤残。
+				</div>
+				<div class="time">
+					评定日期：刚刚
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="pingu-header">
+				小帮鉴定评估报告
+				<img src="../image/pingguzixun.png">
+			</div>
+			<div class="content">
+				<div class="text">
+					伤者食指、无名指末节指骨骨折，目前受伤时间较短，已恢复
+后无明显后遗症为依据评残，依据现有资料，参照《劳动能力
+鉴定 职工工伤与职业病致残等级》标准（GB/T 16180-2014）
+的相关规定，可以评定为十级伤残。
+				</div>
+				<div class="time">
+					评定日期：刚刚
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+</html>

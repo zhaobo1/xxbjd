@@ -1,0 +1,11 @@
+@import "common";
+html,body{
+    background-color: #fff;
+}
+.newWindowbackHeader{
+    @extend %newWindowbackHeader;
+}
+.content_text{
+    padding: 0.32rem;
+    line-height: 1.2;
+}

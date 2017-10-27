@@ -1,0 +1,90 @@
+@import "common";
+html,body{
+    height: 100%;
+    background: #f4f4f4;
+}
+.newWindowbackHeader{
+	@extend %newWindowbackHeader;
+    border-color: #fff;
+}
+body{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;;
+}
+::-webkit-input-placeholder{
+    color: #a0a0a0;
+    @include font-dpr(14px);
+}
+div.mainbox{
+    padding: 0 0.72rem;
+    .item{
+        border-bottom: 1px solid #e5e4e4;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        input{
+            height: 0.96rem;
+            line-height: 0.96rem;
+        }
+        &:first-child{
+            -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                    justify-content: space-between;
+        }
+        &:nth-child(2){
+            margin-top: 0.4rem;
+        }
+        &:last-child{
+            padding: 0;
+            border-bottom: none;
+            margin-top: 1.306667rem;
+        }
+        .title{
+            color: #000;
+            @include font-dpr(14px);
+            margin-right: 0.56rem;
+        }
+        .getcode{
+            height: 0.56rem;
+            line-height: 0.56rem;
+            border:1px solid #3bce9d;
+            color: #3bce9d;
+            @include font-dpr(10px);
+            padding: 0 0.16rem;
+            border-radius: 0.28rem;
+            background:#fff;
+        }
+    }
+    form{
+        button{
+			line-height: 1.146667rem;
+			display: block;
+			text-align: center;
+			background-color: #3bce9d;
+			color: #fff;
+			@include font-dpr(15px);
+			@include borderR(3px);
+			width: 100%;
+        }
+    }
+}
+div.info{
+    color: #333;
+    @include font-dpr(12px);
+    text-align: center;
+    margin-bottom: 0.4rem;
+    .xieyi{
+        color: #3bce9d
+    }
+}

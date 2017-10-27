@@ -1,0 +1,276 @@
+html,body{
+	font-family:'microsoft yahei';
+}
+a{
+	&:link{
+		text-decoration:none!important;
+	}
+	&:visited{
+		text-decoration:none!important;
+	}
+	&:hover{
+		text-decoration:none!important;
+	}
+	&:active{
+		text-decoration:none!important;
+	}
+}
+.none{
+	display:none!important;
+}
+button{
+	font-family: 'microsoft yahei';
+	outline: none;
+}
+$footer-color:#576066;
+$footer-current-color:#3bce9d;
+$true:true;
+$false:false;
+@mixin font-dpr($font-size){
+	font-size: $font-size;
+    [data-dpr="2"] & {
+        font-size: $font-size * 2;
+    }
+    [data-dpr="3"] & {
+        font-size: $font-size * 3;
+    }
+}
+@mixin backgroundImage($url,$cover:cover){
+  background:{
+    image:url($url);
+    repeat:no-repeat;
+    position:center;
+    size:$cover;
+  }
+}
+@mixin footericon($flg){
+	@for $i from 1 through 4 {
+	  	&:nth-child(#{$i}) i{
+  		@if $flg{
+			$url: "../image/footericon#{$i}-hover.png";
+			@include backgroundImage($url,100%);
+  		}@else{
+			$url: "../image/footericon#{$i}.png";
+			@include backgroundImage($url,100%);
+  		}
+	  }
+	}
+}
+@mixin borderR($num)
+{
+	border-radius:$num;
+	-webkit-border-radius:$num;
+	-ms-border-radius:$num;
+}
+//边框SVG函数
+@function borders($color){
+	@return url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%23#{$color}' width='100%25' height='50%25'/%3E%3C/svg%3E") 2 2 stretch;
+}
+%flex{
+	display:flex;
+	-webkit-display:flex;
+	-ms-display:flex;
+}
+%flexCenter-y{
+	align-items:center;
+	-webkit-align-items:center;
+	-ms-align-items:center;
+}
+%flexCenter-x{
+	align-content:center;
+	-webkit-align-content:center;
+	-ms-align-content:center;
+}
+%flexStyle{
+	@extend %flex;
+	@extend %flexCenter-y;
+	@extend %flexCenter-x;
+}
+//components
+//newWindowbackHeader
+%newWindowbackHeader{
+	height:1.173333rem;
+	padding:0 0.32rem;
+	@extend %flexStyle;
+	color:#333;
+	@include font-dpr(18px);
+	background-color:#fff;
+	border-bottom:1px solid #e5e4e4;
+	justify-content:space-between;
+	.back{
+		width: 0.426667rem;
+		height: 0.8rem;
+		img{
+			display: block;
+			width: 100%
+		}
+	}
+	span{
+		margin-left: -0.32rem;
+	}
+}
+//newWindowbackHeader
+//没有登录的样式
+.nologin{
+	@extend %flexStyle;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	span{
+		color: #999;
+		@include font-dpr(15px);
+	}
+	button{
+		width: 3.2rem;
+		height: 0.96rem;
+		border:1px solid #3bce9d;
+		color: #3bce9d;
+		border-radius: 4px;
+		text-align: center;
+		@include font-dpr(15px);
+		margin-top: 0.64rem;
+	}
+}
+//没有网络的样式
+.nointer{
+	@extend %flexStyle;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	position: relative;
+	top:-1.173333rem;
+	img{
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+	color: #999;
+	span:first-child{
+		@include font-dpr(15px);
+		margin:0.4rem 0 0.24rem 0 ;
+	}
+	span:last-child{
+		@include font-dpr(12px);
+	}
+}
+//没有网络的样式
+//header-component
+%headerComponent{
+	height:1.173333rem;
+	background-color:#fff;
+	text-align:center;
+	line-height:1.173333rem;
+	@include font-dpr(18px);
+	color:#000;
+	box-sizing:border-box;
+}
+//header-component
+//footer-component
+%footerComponent{
+	width:100%;
+    border-top: 1px solid transparent;
+    border-image:borders(ddd);
+	height:1.266667rem;
+	background-color:#fff;
+	box-sizing:border-box;
+	@extend %flex;
+	@extend %flexCenter-y;
+	a.item{
+		display: block;
+		flex:1;
+		color:$footer-color;
+		@include font-dpr(9px);
+		text-align: center;
+		@include footericon($false);
+		i{
+			display: block;
+			width: 0.56rem;
+			height:0.56rem;
+			margin:0 auto 0.08rem auto;
+		}
+		&.current{
+			color: $footer-current-color;
+			@include footericon($true);
+		}
+	}
+}
+//footer-component
+//咨询平台按钮组件
+//底部按钮组1；
+%btngroup_1{
+	@extend %flexStyle;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	left:0;
+	.item{
+		flex:1;
+		height: 1.32rem;
+		color: #fff;
+		@include font-dpr(12px);
+		text-align: center;
+		@extend %flexStyle;
+		justify-content: center;
+		img{
+			width: 0.56rem;
+			height: 0.56rem;
+			display: inline-block;
+			margin-right: 0.16rem;
+		}
+		&:first-child{
+			background-color:#318cf2;
+		}
+		&:last-child{
+			background-color:#3bce9d;
+		}
+		&:active{
+			background-color:red;
+		}
+	}
+}
+//底部按钮组2
+%btngroup_2{
+	@extend %flexStyle;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	left:0;
+	.item{
+		flex:1;
+		height: 1.32rem;
+		color: #fff;
+		@include font-dpr(12px);
+		text-align: center;
+		@extend %flexStyle;
+		justify-content: center;
+		img{
+			width: 0.56rem;
+			height: 0.56rem;
+			display: inline-block;
+			margin-right: 0.16rem;
+		}
+		&:first-child{
+			background-color:#318cf2;
+		}
+		&:last-child{
+			background-color:#3bce9d;
+			flex:2;
+			.gmai{
+				@include font-dpr(14px);
+				height: 0.56rem;
+				line-height:0.56rem;
+			}
+			.tw{
+				display: inline-block;
+				height:  0.56rem;
+				line-height: 0.56rem;
+				padding: 0 0.2rem;
+				background: rgba(34,34,34,.2);
+				margin-left: 0.16rem;
+			}
+		}
+		&:active{
+			background-color:red;
+		}
+	}
+}
+//components

@@ -1,0 +1,149 @@
+@import 'common';
+html,body{
+	background-color:#f4f4f4;
+}
+$borders:1px solid #e5e4e4;
+.org_home_header{
+	height:1.173333rem;
+	background-color:#fff;
+	border-bottom:$borders;
+	@extend %flex;
+	@extend %flexCenter-x;
+	@extend %flexCenter-y;
+	justify-content:space-between;
+	-webkit-justify-content:space-between;
+	-ms-justify-content:space-between;
+	box-sizing:border-box;
+	padding:0 0.32rem;
+	.back{
+		width: 0.4rem;
+		height: 0.72rem;
+	}
+	.share{
+		width: 0.533333rem;
+		height: 0.48rem;
+	}
+	span{
+		color: #333;
+		@include font-dpr(18px);
+	}
+}
+//头部信息，
+.topinfo{
+	height:5.333333rem;
+	border-bottom:$borders;
+	overflow: hidden;
+	background-color:#fff;
+	.logo{
+		width: 1.64rem;
+		height: 1.64rem;
+		border:$borders;
+		@include borderR(50%);
+		display: block;
+		margin:0.56rem auto 0.32rem auto;
+	}
+	.name{
+		@include font-dpr(14px);
+		color: #000;
+		text-align: center;
+	}
+	.num{
+		color: #777;
+		@include font-dpr(11px);
+		text-align: center;
+		margin: 0.32rem auto 0.56rem auto;
+	}
+	.rz{
+		@extend %flex;
+		@extend %flexCenter-y;
+		@extend %flexCenter-x;
+		.item{
+			flex:1;
+			text-align: center;
+			img{
+				display: block;
+				margin: 0 auto;
+				width: 0.4rem;
+				height: 0.4rem;
+			}
+			span{
+				color: #999;
+				@include font-dpr(11px);
+			}
+			&:nth-child(2)
+			{
+				border-left:1px solid #d6d6d6;
+				border-right:1px solid #d6d6d6;
+			}
+		}
+	}
+}
+//中间信息；
+.midinfo{
+	background-color:#fff;
+	border-top:$borders;
+	border-bottom:$borders;
+	margin-top:0.36rem;
+	.box{
+		padding-left: 0.32rem;
+		.item{
+			@extend %flex;
+			@extend %flexCenter-y;
+			@extend %flexCenter-x;
+			padding:0.32rem 0;
+			&:first-child{
+				border-bottom:$borders;
+			}
+			.img1{
+				width: 0.426667rem;
+				height: 0.4rem;
+				display: block;
+				margin-right: 0.16rem;
+			}
+			.staricon{
+				width: 0.32rem;
+				height: 0.293333rem;
+				display: block;
+				margin-right: 0.08rem;
+			}
+			.score{
+				@include font-dpr(12px);
+				color: #d1d1d1;
+			}
+			.address{
+				@include font-dpr(12px);
+				color: #777;
+			}
+		}	
+	}
+}
+
+//底部按钮组；
+.btngroup{
+	@extend %flex;
+	@extend %flexCenter-y;
+	@extend %flexCenter-x;
+	.item{
+		flex:1;
+		height: 1.32rem;
+		color: #fff;
+		@include font-dpr(12px);
+		text-align: center;
+		@extend %flex;
+		@extend %flexCenter-y;
+		@extend %flexCenter-x;
+		justify-content: center;
+		img{
+			width: 0.56rem;
+			height: 0.56rem;
+			display: inline-block;
+			margin-right: 0.16rem;
+		}
+		&:first-child{
+			background-color:#318cf2;
+		}
+		&:last-child{
+			background-color:#3bce9d;	
+		}
+	}
+}

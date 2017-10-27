@@ -1,0 +1,10 @@
+//头部三角形返回上一页；
+document.getElementsByClassName('back')[0].addEventListener('click',function(){
+    api.historyBack({
+        frameName:''
+    },function(ret,err){
+        if(!ret.status){
+            api.closeWin();
+        }
+    });
+})

@@ -1,0 +1,14 @@
+@import 'common';
+#headerbox{
+	#header{
+		@extend %headerComponent;
+	}
+}
+#footerbox{
+	position:fixed;
+	bottom:0;
+	width:100vw;
+	#footer{
+		@extend %footerComponent;
+	}
+}

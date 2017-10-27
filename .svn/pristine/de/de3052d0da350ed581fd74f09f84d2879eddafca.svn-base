@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ask.css" />
+	<title>ask_doctor</title>
+</head>
+<body>
+  <!-- 当前数据量不多；刷新加载放在迭代版本中 -->
+  <div class="content">
+    <div class="listbox">
+      <ul class="list org_list">
+      	<li tapmode="list_gray">
+			<div class="item">
+				<img src="../image/pic.png" alt="" class="bigpic">
+			</div>
+			<div class="item">
+				<div class="name">求实鉴定所</div>
+				<div class="num">许可证号：55161873</div>
+				<div>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<img class="staricon" src="../image/start1.png"/>
+					<span class="score">4.5分</span>
+				</div>
+			</div>
+			<div class="chat"><img src="../image/chat.png" alt=""></div>
+      	</li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript">
+var frameH,footerH,headerH;
+//给机构列表添加事件监听，点击进入机构主页；携带机构ID；
+;(function(){
+	var option_org;
+	var defaults = {
+		progress:{
+			type:"page",
+			title:"提示2",
+			text:"加载中..."
+		},
+	}
+	option_org = $.extend({},defaults,{
+		name: 'org_home',
+	    url: './org_home.html',
+	})
+	document.getElementsByClassName('org_list')[0].addEventListener('click',function(e){
+		var idobj = {
+			pageParam: {
+		        id: '1'
+		    }
+		};
+		var option = $.extend({},option_org,idobj);
+		api.openWin(option);
+	},true)
+
+})();
+apiready = function(){
+  //监听事件
+  FastClick.attach(document.body);
+  // api.addEventListener({
+  //     name: 'myEvent'
+  // }, function(ret, err){
+  //     if( ret ){
+  //         // alert( JSON.stringify( ret ) );
+  //     }else{
+  //         // alert( JSON.stringify( err ) );
+  //     }
+  // });
+
+	//在当前window中找到名为frmName的frame，并在该frame中执行jsfun脚本
+	// var jsfun = 'funcGoto();';
+	// api.execScript({
+	//     name:'root',
+	//     script: jsfun
+	// });
+	 }
+</script>
+</html>

@@ -1,0 +1,176 @@
+@import 'common';
+$borders:1px solid #e5e4e4;
+html,body{
+	height:100%;
+	background-color:#f4f4f4;
+}
+.newWindowbackHeader{
+	@extend %newWindowbackHeader;
+}
+.pinguBox{
+	padding:0.32rem;
+	.item{
+		background-color:#fff;
+		border:$borders;
+		margin-bottom: 0.32rem;
+		border-radius:3px;
+		.pingu-header{
+			height: 1.04rem;
+			background-color: #3bce9d;
+			@include font-dpr(14px);
+			color: #fff;
+			@extend %flexStyle;
+			padding:0 0.266667rem;
+			-webkit-box-pack:justify;
+			    -ms-flex-pack:justify;
+			        justify-content:space-between;
+			border-top-left-radius:3px;
+			border-top-right-radius:3px;
+			img{
+				width: 0.64rem;
+				height: 0.64rem;
+			}
+		}
+		.content{
+			padding:0.24rem;
+			.text{
+				line-height: 1.5;
+				color: #333;
+				@include font-dpr(13px);
+			}
+			.time{
+				color: #999;
+				@include font-dpr(11px);
+				margin-top:0.64rem;
+			}
+		}
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}
+
+//提交评估表单
+.jdpu_form{
+	.itemgroup{
+		padding:0 0.72rem;
+		.item{
+			border-bottom: 1px solid #e5e4e4;
+			padding: 0.64rem 0 0.32rem 0;
+			.title{
+				color: #000;
+				@include font-dpr(14px);
+			}
+			&.yuyue{
+				.title{
+					color: #777;
+				}
+			}
+			//手机号
+			.sjh{
+				color: #999;
+				@include font-dpr(14px);
+			}
+			//咨询费用
+			.money{
+				color: #f77b01;
+				@include font-dpr(14px);
+			}
+			//所属地域
+			.diyu{
+				color: #a0a0a0;
+				@include font-dpr(14px);
+			}
+			//预约提交按钮
+			.yuyuebtn{
+				line-height: 1.146667rem;
+				display: block;
+				text-align: center;
+				background-color: #3bce9d;
+				color: #fff;
+				@include font-dpr(15px);
+				@include borderR(3px);
+				width: 100%;
+			}
+			//提示
+			.tips{
+				color: #777;
+				@include font-dpr(12px);
+				margin-bottom: 0.106667rem;
+			}
+			//选择的等级
+			#level_text{
+				color: #3bce9d;
+				@include font-dpr(14px);
+			}
+			//控制图片大小
+			#uploadimg{
+				font-size: 0;
+				img{
+					width: 1.4rem;
+					height: 1.4rem;
+					margin-left: 3px;
+				}
+				.tianjia{
+					height: 0.746667rem;
+					width: 0.746667rem;
+				}
+			}
+			input[name="name"]{
+				text-align: right;
+				color: #999;
+				@include font-dpr(14px);
+			}
+			&.item-style1{
+				@extend %flexStyle;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
+				img{
+					width: 0.4rem;
+					height: 0.2rem;
+				}
+			}
+			&.item-style2{
+				@extend %flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				    -ms-flex-direction: column;
+				        flex-direction: column;
+				-webkit-box-pack: start;
+				    -ms-flex-pack: start;
+				        justify-content: flex-start;
+				.title{
+					margin-bottom: 0.2rem;
+				}
+				textarea{
+					height: 1.28rem;
+				}
+			}
+		}
+		//警告
+		.warn{
+			color: #999;
+			@include font-dpr(14px);
+			margin-top: 0.32rem;
+		}
+	}
+	.btngroup{
+		@extend %btngroup_2;
+	}
+}
+#yuyuebox+.infos{
+	@include font-dpr(12px);
+	color: #777;
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+	di
+	.p1{
+		margin: 2.266667rem auto 0 auto;;
+	}
+	.p2{
+		color: #3bce9d;
+		margin:0.4rem 0;
+	}
+}

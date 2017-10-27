@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="stylesheet" href="../css/pingu.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="newWindowbackHeader">
+        <a class="back"><img src="../image/back.png"></a>
+		<span>我的评估</span>
+		<i></i>
+    </header>
+    <div class="jdpu_form">
+        <form action="">
+
+            
+        </form>
+
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+    var UIselector;
+    apiready = function(){
+        UIselector = api.require("UIActionSelector");
+        UIselector.open({
+            datas:[
+                {name:"人体损伤程度等级评定"},
+                {name:"工伤等级评定"},
+                {name:"道路交通事故等级评定"},
+                {name:"工伤等级评定"}
+            ],
+            layout:{
+                row: 4,                            //（可选项）数字类型；每屏显示的数据行数，超出的数据可以滑动查看，只能是奇数；默认：5
+                col: 1,                            //（可选项）数字类型；数据源的数据级数，最多3级；默认：3
+                height: 40,                        //（可选项）数字类型；每行选项的高度；默认：30
+                size: 16,                          //（可选项）数字类型；普通选项的字体大小；默认：12
+                sizeActive: 18,                    //（可选项）数字类型；当前选项的字体大小；默认：同 size
+                rowSpacing: 1,                     //（可选项）数字类型；行与行之间的距离；默认：5
+                colSpacing: 0,                    //（可选项）数字类型；列与列之间的距离；默认：10
+                maskBg: 'rgba(0,0,0,0.2)',         //（可选项）字符串类型；遮罩层背景，点击该区域隐藏选择器，支持 rgb，rgba，#，img；默认：rgba(0,0,0,0.2)
+                bg: '#f0f0f0',                        //（可选项）字符串类型；选择器有效区域背景，支持 rgb，rgba，#，img；默认：#fff
+                color: '#555',                     //（可选项）字符串类型；选项的文字颜色，支持 rgb，rgba，#；默认：#848484
+                colorSelected: '#000'              //（可选项）字符串类型；已选项的文字颜色，支持 rgb，rgba，#；默认：同 colorActive
+            },
+            cancel:{
+               text: '取消',                      //（可选项）字符串类型；取消按钮的显示文字；默认：未设置时只显示背景
+               size: 12,                          //（可选项）数字类型；取消按钮的显示文字大小；默认：12
+               w: 90,                             //（可选项）数字类型；取消按钮的宽；默认：90
+               h: 35,                             //（可选项）数字类型；取消按钮的高；默认：35
+               bg: '#ccc',                        //（可选项）字符串类型；取消按钮的背景，支持 rgb，rgba，#，img；默认：'#fff'
+               bgActive: '#aaa',                  //（可选项）字符串类型；取消按钮的背景高亮，支持 rgb，rgba，#，img；默认：同 bg
+               color: '#000',                     //（可选项）字符串类型；取消按钮的文字颜色，支持 rgb，rgba，#；默认：'#848484'
+               colorActive: '#fff'                //（可选项）字符串类型；取消按钮的文字颜色高亮，支持 rgb，rgba，#；默认：同 color
+            },
+            ok:{
+              text: '确定',                      //（可选项）字符串类型；确定按钮的显示文字；默认：未设置时只显示背景
+              size: 12,                          //（可选项）数字类型；确定按钮的显示文字大小；默认：12
+              w: 90,                             //（可选项）数字类型；确定按钮的宽；默认：90
+              h: 35,                             //（可选项）数字类型；确定按钮的高；默认：35
+              bg: '#3bce9d',                        //（可选项）字符串类型；确定按钮的背景，支持 rgb，rgba，#，img；默认：'#fff'
+              bgActive: '#33ae85',                  //（可选项）字符串类型；确定按钮的背景高亮，支持 rgb，rgba，#，img；默认：同 bg
+              color: '#fff',                     //（可选项）字符串类型；确定按钮的文字颜色，支持 rgb，rgba，#；默认：'#848484'
+              colorActive: '#fff'                //（可选项）字符串类型；确定按钮的文字颜色高亮，支持 rgb，rgba，#；默认：同 color
+          },
+          title:{
+              text:'',
+              bg:'#fff'
+          }
+      }, function(ret, err) {
+        if (ret) {
+                console.log(JSON.stringify(ret));
+            } else {
+                console.log(JSON.stringify(err));
+            }
+        })
+    }
+
+</script>
+</html>

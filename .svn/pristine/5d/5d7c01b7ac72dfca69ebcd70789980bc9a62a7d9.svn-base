@@ -1,0 +1,50 @@
+@import 'common';
+ //咨询法医机构头部
+#headerbox{
+	box-sizing:border-box;
+	border-bottom:1px solid #e8e8e8;
+}
+#header{
+	line-height:1.173333rem;
+	@extend %flex;
+	.item{
+		flex: 1;
+		text-align: left;
+		@include font-dpr(18px);
+		color: #333;
+		span{
+			display: inline-block;
+			padding:0 0.48rem;
+			box-sizing:border-box;
+			border-bottom:2px solid transparent;
+		}
+		&:nth-child(1)
+		{
+			text-align: right;
+		}
+		&.current{
+			color: #47d9bf;
+			span{
+				border-color:#47d9bf;
+			}
+		}
+	}
+}
+.content{
+	.listbox{
+		.list{
+			&.org_list{
+				//机构列表
+				li{
+					
+				}
+			}
+			&.doctor_list{
+				//专家列表
+				li{
+					@include font-dpr(13px);
+				}
+			}
+		}
+	}
+}

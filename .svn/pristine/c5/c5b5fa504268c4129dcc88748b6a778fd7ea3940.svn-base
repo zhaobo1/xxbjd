@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+<body>
+    <div id="footerbox">
+	    <div id="footer">
+			<a href="javascript:;" onclick="openFrame(1)" class="item current">
+				<i></i>
+				首 页
+			</a>
+			<a href="javascript:;" onclick="openFrame(2)" class="item">
+				<i></i>
+				咨 询
+			</a>
+			<a href="javascript:;" onclick="openFrame(3)" class="item">
+				<i style="position:relative"><span class="unreadnum" id="unreadnum"></span></i>
+				消 息
+			</a>
+			<a href="javascript:;" onclick="openFrame(4)" class="item">
+				<i></i>
+				我 的
+			</a>
+	    </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="./script/jquery.sha1.js"></script>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/flexible.js"></script>
+<script type="text/javascript" src="./script/base.js"></script>
+<script type="text/javascript">
+var frameH,footerH,currentIndex,rongCloud2,isFront;
+isFront = true;currentIndex = 1;//默认等于1；首页显示；
+function openFrame(index,str){
+    if(currentIndex!=index){
+		switch(index)
+		{
+			case 1:
+                jumpframe('main','')
+			break;
+            case 2:
+                jumpframe('askframe',str)
+			break;
+			case 3:
+                jumpframe('message','')
+			break;
+			case 4:
+                jumpframe('my','');
+			break;
+		}
+        //激活当前选项卡；
+        $api.removeCls(document.getElementsByClassName('current')[0],'current');
+        var footeritems = document.getElementsByClassName('item');
+        $api.addCls(footeritems[index-1],'current');
+        currentIndex = index;
+    }
+}
+function jumpframe(framename,str){
+    hideAllFrame();
+    api.openFrame({
+        name: framename,
+        url: 'html/'+framename+'.html',
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: frameH
+        },
+        pageParam: {
+          footerH:footerH,
+          type:str
+        },
+        bounces: true,
+        reload:true,
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+
+}
+// 隐藏所有的一级frame
+function hideAllFrame(){
+   api.closeFrame({
+       name: 'main',
+   });
+   api.closeFrame({
+       name: 'askframe',
+   });
+   api.closeFrame({
+       name: 'message',
+   });
+   api.closeFrame({
+       name: 'my',
+   });
+   api.closeFrame({
+       name: 'ask_org',
+   });
+   api.closeFrame({
+       name: 'ask_doctor',
+   });
+}
+function initRongyun(){
+        var user = Xiaobang.getuser();
+        if(user)
+        {
+            rongCloud2.init(function(ret, err) {
+                if (ret.status == 'error')
+                    api.toast({ msg: err.code });
+            });
+            rongCloud2.connect({token: user.token},function(ret, err) {
+                if (ret.status == 'success'){
+                    //返回登录融云用户的ID；
+                    api.toast({ msg: ret.result.userId });
+                }
+            });
+        }else{
+            api.toast({msg: '未登录，无法连接融云,消息无法使用'});
+        }
+        //设置接收消息的监听
+        rongCloud2.setOnReceiveMessageListener(function(ret, err) {
+            alert(JSON.stringify(ret.result.message));
+            // 发送一个事件给应用；
+            api.sendEvent({
+                name: 'getmessage',
+                extra: {
+                    message: ret.result.message,
+                }
+            });
+            if(!isFront)
+            {
+                api.notification({
+                    notify: {
+                        title:'您有一条新消息',
+                        content:ret.result.message.content.text,
+                        extra:''
+                    },
+                }, function(ret, err){});
+            }else {
+                //在前台取消通知栏提示；
+                api.cancelNotification({
+                    id: -1
+                });
+            }
+            //在接收到消息的时候也调用获取所有未读消息函数；
+            getUnreadCount();
+            api.execScript({
+                frameName: 'message',
+                script: 'initmessageList();'
+            });
+        });
+    }
+    apiready = function(){
+        rongCloud2 = api.require("rongCloud2");
+        var footer = $api.byId('footerbox');
+		footerH = $api.offset(footer).h;
+		frameH = api.winHeight - footerH;
+        api.openFrame({
+            name: 'main',
+            url: 'html/main.html',
+            bounces: true,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: frameH
+            }
+        });
+        initRongyun();
+        //监听应用进入后台事件；
+        api.addEventListener({
+            name: 'pause'
+        }, function(ret, err){
+            if( ret ){
+                alert('进入后台')
+                isFront = false;
+            }
+        });
+        //监听应用进入前台事件
+        api.addEventListener({
+            name: 'resume'
+        }, function(ret, err){
+            if( ret ){
+                alert('恢复前台')
+                //取消通知栏推送；
+                isFront = true;
+            }
+        });
+        //登录成功事件监听
+        api.addEventListener({
+            name: 'loginsuccess'
+        }, function(ret, err){
+            if( ret ){
+                var user = Xiaobang.getuser();
+                rongCloud2.init(function(ret, err) {
+                    if (ret.status == 'error')
+                        api.toast({ msg: err.code });
+                });
+                rongCloud2.connect({token: user.token},function(ret, err) {
+                    if (ret.status == 'success'){
+                        //返回登录融云用户的ID；
+                        api.toast({ msg: ret.result.userId });
+                    }
+                });
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+        // 初始化获取所有未读消息数；
+        getUnreadCount();
+    };
+    //获取所有未读消息数；
+    function getUnreadCount(){
+        rongCloud2.getTotalUnreadCount(function(ret, err) {
+            api.toast({ msg: ret.result });
+            var noread = ret.result||'';
+            $api.html($api.byId('unreadnum'),noread);
+        })
+    }
+    //changeTitle
+    function changeTitle(str){
+        //var header = $api.byId('header');
+        //$api.html(header, str);
+    }
+</script>
+</html>

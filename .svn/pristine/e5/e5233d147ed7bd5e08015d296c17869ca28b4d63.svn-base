@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/doctor_home.css" />
+	<title>Document</title>
+</head>
+<body>
+	<div class="topinfo">
+		<img src="../image/photo.png">
+		<div class="item">
+			<div class="name">俞灏明</div>
+			<div class="belong">被烧伤的演员</div>
+			<div class="tagbox">
+				<span class="tag">伤残鉴定</span>
+				<span class="tag">电子数据鉴定</span>
+				<span class="tag">笔记鉴定</span>
+			</div>
+		</div>
+	</div>
+	<div class="server">
+		<div class="title">互动服务</div>
+		<div class="item">
+			<div class="box">
+				<img src="../image/zjxiangqing.png" alt="">
+				<div class="infos">
+					<div class="name">图文咨询</div>
+					<div class="tips">通过文字、图片、语音、实时视频咨询</div>
+					<span>￥30 / 次</span>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="box">
+				<img src="../image/zjtel.png" alt="">
+				<div class="infos">
+					<div class="name">电话咨询</div>
+					<div class="tips">快速与专家通话，用户满意度99%</div>
+					<span>￥30 / 分钟</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="doctor_des">
+		<div class="title">专家介绍</div>
+		<div class="des_box">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<span class="titles">执业地区：</span>
+						<span class="nr">成都</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="titles">执业年限：</span>
+						<span class="nr">5年</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="titles">执业证号：</span>
+						<span class="nr">21402550315</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="titles">小帮认证：</span>
+						<span class="nr">实名认证</span>
+						<span class="nr">执业认证</span>
+					</td>
+				</tr>
+			</table>
+			<div class="text">
+				四川求实司法鉴定所成立于2001年,是四川省司法厅批准成立的具
+			有多学科、多门类鉴定能力的综合性直属司法鉴定机构。作为第三
+			方鉴定机构，我所始终坚持“专家治所、质量第一”指导思想，秉
+			承“科学、客观、公正、独立、高效”的鉴定工作方针，竭诚面向
+			全社会提供优质、高效的司法鉴定服务。
+			</div>
+		</div>
+	</div>
+	<div class="comment">
+		<div class="title">
+			<div>
+				<label>用户评价</label>综合评分：<span style="color:#ff7690">5.0</span>分
+			</div>
+			<img src="../image/pingjia.png" alt="" tapmode id="writePinlun">
+		</div>
+		<ul class="commentlist">
+			<li>
+				<div class="top">
+					<div class="left">
+						<span class="name">187****8878</span>
+						<span class="time">1分钟前</span>
+					</div>
+					<div class="right">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+					</div>
+				</div>
+				<div class="nrs">欧阳老师看着年轻，但是讲解非常认真仔细点个赞</div>
+			</li>
+			<li>
+				<div class="top">
+					<div class="left">
+						<span class="name">187****8878</span>
+						<span class="time">1分钟前</span>
+					</div>
+					<div class="right">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+						<img src="../image/start1.png" alt="">
+					</div>
+				</div>
+				<div class="nrs">欧阳老师看着年轻，但是讲解非常认真仔细点个赞</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/flexible.js"></script>
+<script type="text/javascript" src="../script/fastclick.js"></script>
+<script type="text/javascript">
+document.getElementById('writePinlun').addEventListener('click',function(){
+	api.openWin({
+	    name: 'writePinlun',
+	    url: './writePinlun.html',
+	    pageParam: {
+	        name: 'test'
+	    }
+	});
+},true)
+apiready=function(){
+	FastClick.attach(document.body);
+}
+</script>
+</html>
